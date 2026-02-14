@@ -1,12 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useInView,
-  animate,
-} from "framer-motion";
+import { motion } from "framer-motion";
 import {
   TrendingUp,
   BarChart2,
@@ -16,79 +10,9 @@ import {
   Clock,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
-
-/* ═══════════════════════ ANIMATED NUMBER ═══════════════════════ */
-
-function AnimatedNumber({
-  target,
-  suffix = "",
-  prefix = "",
-}: {
-  target: number;
-  suffix?: string;
-  prefix?: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const count = useMotionValue(0);
-
-  useEffect(() => {
-    if (isInView) {
-      const controls = animate(count, target, {
-        duration: 2,
-        ease: [0.22, 1, 0.36, 1],
-      });
-      const unsub = count.on("change", (v) => {
-        if (ref.current)
-          ref.current.textContent = prefix + Math.round(v) + suffix;
-      });
-      return () => {
-        controls.stop();
-        unsub();
-      };
-    }
-  }, [isInView, count, target, suffix, prefix]);
-
-  return (
-    <span ref={ref}>
-      {prefix}0{suffix}
-    </span>
-  );
-}
-
-/* ═══════════════════════ GLOW CARD (cursor light only) ═══════════════════════ */
-
-function GlowCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      e.currentTarget.style.setProperty(
-        "--mouse-x",
-        `${e.clientX - rect.left}px`
-      );
-      e.currentTarget.style.setProperty(
-        "--mouse-y",
-        `${e.clientY - rect.top}px`
-      );
-    },
-    []
-  );
-
-  return (
-    <div
-      className={`glow-card group ${className}`}
-      onMouseMove={handleMouseMove}
-    >
-      {children}
-    </div>
-  );
-}
+import GlowCard from "./GlowCard";
+import AnimatedNumber from "./AnimatedNumber";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
 /* ═══════════════════════ BENTO CARDS DATA ═══════════════════════ */
 
@@ -154,14 +78,14 @@ export default function WhyMentoring() {
   return (
     <section id="why" className="relative py-16 md:py-32">
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
 
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
             <div>
-              <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+              <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
                 למה דווקא ליווי?
               </p>
               <h2 className="text-3xl md:text-[3rem] font-black leading-tight">
@@ -190,21 +114,21 @@ export default function WhyMentoring() {
               >
                 <GlowCard className="h-full rounded-2xl">
                   <div
-                    className={`relative bg-[#121225] border border-white/[0.04] hover:border-white/[0.08] rounded-2xl h-full transition-colors duration-300 overflow-hidden ${
+                    className={`relative bg-dark-card border border-white/4 hover:border-white/8 rounded-2xl h-full transition-colors duration-300 overflow-hidden ${
                       isLarge ? "p-5 sm:p-8 lg:p-10" : "p-5 sm:p-7 lg:p-8"
                     }`}
                   >
                     {/* Subtle gradient accent for the large card */}
                     {isLarge && (
                       <div
-                        className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#1B7340]/[0.06] via-transparent to-transparent pointer-events-none"
+                        className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-brand-green/6 via-transparent to-transparent pointer-events-none"
                         aria-hidden="true"
                       />
                     )}
 
                     {/* Icon */}
                     <div
-                      className={`relative z-10 rounded-xl bg-[#1B7340]/[0.12] text-[#2ECC71] flex items-center justify-center mb-5 ${
+                      className={`relative z-10 rounded-xl bg-brand-green/12 text-accent-green flex items-center justify-center mb-5 ${
                         isLarge ? "w-14 h-14" : "w-11 h-11"
                       }`}
                     >
@@ -237,7 +161,7 @@ export default function WhyMentoring() {
                     {isLarge && (
                       <div className="relative z-10 mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                         {/* Course card (negative) */}
-                        <div className="bg-white/[0.02] border border-white/[0.04] rounded-xl p-5">
+                        <div className="bg-white/2 border border-white/4 rounded-xl p-5">
                           <div className="flex items-center gap-2 mb-3">
                             <div className="w-2 h-2 rounded-full bg-red-400/60" />
                             <span className="text-xs font-semibold text-text-muted uppercase tracking-wider">
@@ -254,7 +178,7 @@ export default function WhyMentoring() {
                                 key={item}
                                 className="flex items-center gap-2 text-sm text-text-muted"
                               >
-                                <span className="w-4 h-4 rounded-full bg-white/[0.04] flex items-center justify-center flex-shrink-0">
+                                <span className="w-4 h-4 rounded-full bg-white/4 flex items-center justify-center flex-shrink-0">
                                   <span className="block w-1.5 h-[1.5px] bg-text-muted/60 rounded" />
                                 </span>
                                 {item}
@@ -264,10 +188,10 @@ export default function WhyMentoring() {
                         </div>
 
                         {/* Mentoring card (positive) */}
-                        <div className="bg-[#1B7340]/[0.06] border border-[#1B7340]/20 rounded-xl p-5">
+                        <div className="bg-brand-green/6 border border-brand-green/20 rounded-xl p-5">
                           <div className="flex items-center gap-2 mb-3">
-                            <div className="w-2 h-2 rounded-full bg-[#2ECC71]" />
-                            <span className="text-xs font-semibold text-[#2ECC71] uppercase tracking-wider">
+                            <div className="w-2 h-2 rounded-full bg-accent-green" />
+                            <span className="text-xs font-semibold text-accent-green uppercase tracking-wider">
                               ליווי עם ירין
                             </span>
                           </div>
@@ -281,9 +205,9 @@ export default function WhyMentoring() {
                                 key={item}
                                 className="flex items-center gap-2 text-sm text-text-secondary"
                               >
-                                <span className="w-4 h-4 rounded-full bg-[#2ECC71]/15 flex items-center justify-center flex-shrink-0">
+                                <span className="w-4 h-4 rounded-full bg-accent-green/15 flex items-center justify-center flex-shrink-0">
                                   <svg
-                                    className="w-2.5 h-2.5 text-[#2ECC71]"
+                                    className="w-2.5 h-2.5 text-accent-green"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -324,11 +248,11 @@ export default function WhyMentoring() {
                   transition={{
                     duration: 0.6,
                     delay: i * 0.1,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE_OUT_EXPO,
                   }}
-                  className="bg-[#121225] border border-white/[0.04] rounded-2xl p-4 sm:p-6 flex items-center gap-4"
+                  className="bg-dark-card border border-white/4 rounded-2xl p-4 sm:p-6 flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-[#1B7340]/[0.1] text-[#2ECC71] flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-brand-green/10 text-accent-green flex items-center justify-center flex-shrink-0">
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>

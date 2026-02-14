@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { scrollToContact } from "@/lib/utils";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
 /* ═══════════════════════ NAV DATA ═══════════════════════ */
 
@@ -76,7 +77,6 @@ export default function Navbar() {
   const handleNav = useCallback(
     (href: string) => {
       setMenuOpen(false);
-      // Small delay to let menu close animation start
       setTimeout(() => {
         document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
       }, menuOpen ? 150 : 0);
@@ -89,8 +89,8 @@ export default function Navbar() {
     scrollStage === "top"
       ? "bg-transparent"
       : scrollStage === "scrolled"
-        ? "bg-[#0A0A1A]/65 backdrop-blur-xl backdrop-saturate-[180%] border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.2)]"
-        : "bg-[#0A0A1A]/80 backdrop-blur-2xl backdrop-saturate-[180%] border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.3)]";
+        ? "bg-dark/65 backdrop-blur-xl backdrop-saturate-[180%] border-b border-white/6 shadow-[0_4px_30px_rgba(0,0,0,0.2)]"
+        : "bg-dark/80 backdrop-blur-2xl backdrop-saturate-[180%] border-b border-white/6 shadow-[0_4px_30px_rgba(0,0,0,0.3)]";
 
   const navHeight =
     scrollStage === "top"
@@ -107,7 +107,7 @@ export default function Navbar() {
         {/* Gradient bottom border (visible when scrolled) */}
         {scrollStage !== "top" && (
           <div
-            className="absolute bottom-0 left-[10%] right-[10%] h-px bg-gradient-to-l from-transparent via-[#2ECC71]/10 to-transparent"
+            className="absolute bottom-0 left-[10%] right-[10%] h-px bg-gradient-to-l from-transparent via-accent-green/10 to-transparent"
             aria-hidden="true"
           />
         )}
@@ -125,7 +125,7 @@ export default function Navbar() {
               }}
               className="group flex items-center gap-2"
             >
-              <span className="text-xl font-extrabold tracking-tight text-[#2ECC71] transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(46,204,113,0.3)]">
+              <span className="text-xl font-extrabold tracking-tight text-accent-green transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(46,204,113,0.3)]">
                 ירין
               </span>
               <span className="text-xl font-medium tracking-tight text-white">
@@ -143,7 +143,7 @@ export default function Navbar() {
                     onClick={() => handleNav(link.href)}
                     className={`relative text-sm px-3.5 py-1.5 rounded-full transition-all duration-300 ${
                       isActive
-                        ? "text-white bg-white/[0.06]"
+                        ? "text-white bg-white/6"
                         : "text-text-secondary hover:text-white"
                     }`}
                   >
@@ -166,7 +166,7 @@ export default function Navbar() {
             {/* Mobile: Animated hamburger-to-X */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.05]"
+              className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-xl bg-white/5"
               aria-label={menuOpen ? "סגור תפריט" : "פתח תפריט"}
             >
               <div className="w-5 flex flex-col gap-[5px]">
@@ -199,12 +199,12 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-50 bg-[#0A0A1A]/95 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-50 bg-dark/95 backdrop-blur-2xl md:hidden"
           >
             {/* Close button (top-left for RTL) */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-6 start-5 w-10 h-10 flex items-center justify-center rounded-xl bg-white/[0.05] z-10"
+              className="absolute top-6 start-5 w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 z-10"
               aria-label="סגור תפריט"
             >
               <div className="w-5 flex flex-col gap-[5px]">
@@ -223,12 +223,12 @@ export default function Navbar() {
                   transition={{
                     delay: 0.08 + i * 0.06,
                     duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: EASE_OUT_EXPO,
                   }}
                   onClick={() => handleNav(link.href)}
                   className={`text-2xl font-bold transition-colors duration-300 ${
                     activeSection === link.href.slice(1)
-                      ? "text-[#2ECC71]"
+                      ? "text-accent-green"
                       : "text-white/70 hover:text-white"
                   }`}
                 >
@@ -243,7 +243,7 @@ export default function Navbar() {
                 transition={{
                   delay: 0.08 + NAV_LINKS.length * 0.06,
                   duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: EASE_OUT_EXPO,
                 }}
                 onClick={() => {
                   setMenuOpen(false);

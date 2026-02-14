@@ -62,13 +62,13 @@ const PACKAGES = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-16 md:py-32 bg-[#0d0d1e]">
+    <section id="services" className="relative py-16 md:py-32 bg-dark-section">
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
 
       {/* Background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[#1B7340]/[0.03] blur-[120px] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-brand-green/3 blur-[120px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -76,7 +76,7 @@ export default function Services() {
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="text-center mb-10 md:mb-16">
-            <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
               חבילות
             </p>
             <h2 className="text-3xl md:text-[3rem] font-black">
@@ -99,23 +99,23 @@ export default function Services() {
                   {pkg.popular ? (
                     /* ── Popular card with animated gradient border ── */
                     <div className="animated-border rounded-2xl p-[1.5px] h-full">
-                      <div className="relative bg-[#0f0f22] rounded-2xl p-5 sm:p-7 lg:p-9 flex flex-col h-full overflow-hidden">
+                      <div className="relative bg-dark-surface rounded-2xl p-5 sm:p-7 lg:p-9 flex flex-col h-full overflow-hidden">
                         {/* Glow accent */}
                         <div
-                          className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#2ECC71]/[0.08] via-transparent to-transparent pointer-events-none"
+                          className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-accent-green/8 via-transparent to-transparent pointer-events-none"
                           aria-hidden="true"
                         />
 
                         {/* Badge */}
                         <div className="relative z-10 flex items-center justify-between mb-6">
-                          <span className="inline-flex items-center gap-1.5 bg-[#2ECC71]/10 text-[#2ECC71] text-xs font-bold px-3 py-1.5 rounded-lg border border-[#2ECC71]/20">
+                          <span className="inline-flex items-center gap-1.5 bg-accent-green/10 text-accent-green text-xs font-bold px-3 py-1.5 rounded-lg border border-accent-green/20">
                             <Rocket className="w-3 h-3" />
                             {pkg.tag}
                           </span>
                         </div>
 
                         {/* Icon */}
-                        <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-[#2ECC71] to-[#1B7340] flex items-center justify-center mb-5 shadow-lg shadow-[#2ECC71]/20">
+                        <div className="relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-accent-green to-brand-green flex items-center justify-center mb-5 shadow-lg shadow-accent-green/20">
                           <Icon className="w-6 h-6 text-white" />
                         </div>
 
@@ -137,12 +137,12 @@ export default function Services() {
                               <div
                                 className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
                                   f.included
-                                    ? "bg-[#2ECC71]/15"
-                                    : "bg-white/[0.04]"
+                                    ? "bg-accent-green/15"
+                                    : "bg-white/4"
                                 }`}
                               >
                                 {f.included ? (
-                                  <Check className="w-3 h-3 text-[#2ECC71]" />
+                                  <Check className="w-3 h-3 text-accent-green" />
                                 ) : (
                                   <span className="block w-1.5 h-[1.5px] bg-text-muted/40 rounded" />
                                 )}
@@ -174,17 +174,17 @@ export default function Services() {
                     </div>
                   ) : (
                     /* ── Standard card ── */
-                    <div className="relative bg-[#121225] border border-white/[0.04] hover:border-white/[0.08] rounded-2xl p-5 sm:p-7 lg:p-9 flex flex-col h-full transition-colors duration-300">
+                    <div className="relative bg-dark-card border border-white/4 hover:border-white/8 rounded-2xl p-5 sm:p-7 lg:p-9 flex flex-col h-full transition-colors duration-300">
                       {/* Tag */}
                       <div className="flex items-center justify-between mb-6">
-                        <span className="inline-flex items-center gap-1.5 bg-white/[0.04] text-text-muted text-xs font-bold px-3 py-1.5 rounded-lg border border-white/[0.04]">
+                        <span className="inline-flex items-center gap-1.5 bg-white/4 text-text-muted text-xs font-bold px-3 py-1.5 rounded-lg border border-white/4">
                           {pkg.tag}
                         </span>
                       </div>
 
                       {/* Icon */}
-                      <div className="w-12 h-12 rounded-xl bg-[#1B7340]/[0.1] flex items-center justify-center mb-5">
-                        <Icon className="w-6 h-6 text-[#2ECC71]" />
+                      <div className="w-12 h-12 rounded-xl bg-brand-green/10 flex items-center justify-center mb-5">
+                        <Icon className="w-6 h-6 text-accent-green" />
                       </div>
 
                       {/* Title & description */}
@@ -203,12 +203,12 @@ export default function Services() {
                             <div
                               className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
                                 f.included
-                                  ? "bg-[#1B7340]/15"
-                                  : "bg-white/[0.04]"
+                                  ? "bg-brand-green/15"
+                                  : "bg-white/4"
                               }`}
                             >
                               {f.included ? (
-                                <Check className="w-3 h-3 text-[#2ECC71]" />
+                                <Check className="w-3 h-3 text-accent-green" />
                               ) : (
                                 <span className="block w-1.5 h-[1.5px] bg-text-muted/40 rounded" />
                               )}
@@ -256,7 +256,7 @@ export default function Services() {
             לא בטוח מה מתאים לך?{" "}
             <button
               onClick={scrollToContact}
-              className="text-[#2ECC71] hover:underline underline-offset-4 font-medium"
+              className="text-accent-green hover:underline underline-offset-4 font-medium"
             >
               דבר איתי ונמצא יחד
             </button>

@@ -9,6 +9,7 @@ import {
   Quote,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
 /* ═══════════════════════ JOURNEY MILESTONES ═══════════════════════ */
 
@@ -54,11 +55,11 @@ export default function About() {
   return (
     <section id="about" className="relative py-16 md:py-32 mesh-bg">
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
 
       {/* Background glow */}
       <div
-        className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-[#1B7340]/[0.03] blur-[150px] pointer-events-none"
+        className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full bg-brand-green/3 blur-[150px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -66,7 +67,7 @@ export default function About() {
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="text-center mb-10 md:mb-16">
-            <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
               קצת עליי
             </p>
             <h2 className="text-3xl md:text-[3rem] font-black">
@@ -84,21 +85,21 @@ export default function About() {
           <ScrollReveal direction="right" className="lg:col-span-5">
             <div className="lg:sticky lg:top-28 flex flex-col gap-6">
               {/* Photo placeholder */}
-              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-[#121225] border border-white/[0.06]">
+              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-dark-card border border-white/6">
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A1A] via-transparent to-transparent z-10" />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent z-10" />
 
                 {/* Decorative corner accent */}
                 <div
-                  className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#2ECC71]/[0.08] to-transparent pointer-events-none z-10"
+                  className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent-green/8 to-transparent pointer-events-none z-10"
                   aria-hidden="true"
                 />
 
                 {/* Center content */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#1B7340]/20 to-[#2ECC71]/10 flex items-center justify-center mx-auto mb-4 border border-[#2ECC71]/10">
-                      <span className="text-4xl font-black text-[#2ECC71]">
+                    <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-brand-green/20 to-accent-green/10 flex items-center justify-center mx-auto mb-4 border border-accent-green/10">
+                      <span className="text-4xl font-black text-accent-green">
                         י
                       </span>
                     </div>
@@ -116,11 +117,11 @@ export default function About() {
               </div>
 
               {/* Pull quote card */}
-              <div className="relative bg-[#121225] rounded-2xl p-5 sm:p-7 border border-white/[0.04] overflow-hidden">
+              <div className="relative bg-dark-card rounded-2xl p-5 sm:p-7 border border-white/4 overflow-hidden">
                 {/* Accent line */}
-                <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-[#2ECC71] via-[#1B7340] to-transparent" />
+                <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-accent-green via-brand-green to-transparent" />
 
-                <Quote className="w-8 h-8 text-[#2ECC71]/15 mb-3" />
+                <Quote className="w-8 h-8 text-accent-green/15 mb-3" />
 
                 <blockquote className="text-xl font-bold leading-snug text-white/90">
                   &ldquo;המסחר מראה לך מי אתה. כל מי שנכנס לשוק — מגלה את
@@ -128,8 +129,8 @@ export default function About() {
                 </blockquote>
 
                 <div className="mt-5 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-[#1B7340]/15 flex items-center justify-center">
-                    <span className="text-sm font-bold text-[#2ECC71]">י</span>
+                  <div className="w-8 h-8 rounded-lg bg-brand-green/15 flex items-center justify-center">
+                    <span className="text-sm font-bold text-accent-green">י</span>
                   </div>
                   <span className="text-sm text-text-muted">ירין מנוח</span>
                 </div>
@@ -142,7 +143,7 @@ export default function About() {
             {/* Story text */}
             <ScrollReveal direction="left">
               <div className="space-y-6 text-text-secondary text-lg leading-[1.85]">
-                <p className="border-r-2 border-[#1B7340]/40 pr-4 sm:pr-6">
+                <p className="border-r-2 border-brand-green/40 pr-4 sm:pr-6">
                   התחלתי לסחור ב-2021. עברתי ליוויים וקורסים שונים, ועשיתי את זה
                   תוך כדי תואר בהנדסת תוכנה כהשלמת הכנסה. הבנתי מהר שזה מה שאני
                   אוהב לעשות — את העניין, הריגוש, העצמאות.
@@ -168,13 +169,13 @@ export default function About() {
             {/* Journey Timeline */}
             <ScrollReveal delay={150}>
               <div className="relative">
-                <h3 className="text-sm font-semibold text-[#2ECC71] uppercase tracking-wider mb-8">
+                <h3 className="text-sm font-semibold text-accent-green uppercase tracking-wider mb-8">
                   המסע שלי
                 </h3>
 
                 {/* Timeline line */}
                 <div
-                  className="absolute start-[23px] top-[4.5rem] bottom-4 w-px bg-gradient-to-b from-[#2ECC71]/30 via-[#1B7340]/20 to-transparent"
+                  className="absolute start-[23px] top-[4.5rem] bottom-4 w-px bg-gradient-to-b from-accent-green/30 via-brand-green/20 to-transparent"
                   aria-hidden="true"
                 />
 
@@ -190,19 +191,19 @@ export default function About() {
                         transition={{
                           duration: 0.5,
                           delay: i * 0.12,
-                          ease: [0.22, 1, 0.36, 1],
+                          ease: EASE_OUT_EXPO,
                         }}
                         className="flex gap-5"
                       >
                         {/* Node */}
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#121225] border border-white/[0.06] flex items-center justify-center relative z-10">
-                          <Icon className="w-5 h-5 text-[#2ECC71]" />
+                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-dark-card border border-white/6 flex items-center justify-center relative z-10">
+                          <Icon className="w-5 h-5 text-accent-green" />
                         </div>
 
                         {/* Content */}
                         <div className="flex-1 pb-2">
                           <div className="flex items-center gap-3 mb-1.5">
-                            <span className="text-xs font-bold text-[#2ECC71] bg-[#2ECC71]/10 px-2.5 py-1 rounded-md">
+                            <span className="text-xs font-bold text-accent-green bg-accent-green/10 px-2.5 py-1 rounded-md">
                               {m.year}
                             </span>
                             <h4 className="font-bold text-white">{m.title}</h4>
@@ -221,7 +222,7 @@ export default function About() {
             {/* Credential badges */}
             <ScrollReveal delay={300}>
               <div>
-                <h3 className="text-sm font-semibold text-[#2ECC71] uppercase tracking-wider mb-5">
+                <h3 className="text-sm font-semibold text-accent-green uppercase tracking-wider mb-5">
                   הסמכות וניסיון
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -236,12 +237,12 @@ export default function About() {
                         transition={{
                           duration: 0.4,
                           delay: i * 0.08,
-                          ease: [0.22, 1, 0.36, 1],
+                          ease: EASE_OUT_EXPO,
                         }}
-                        className="flex items-center gap-3 bg-[#121225] border border-white/[0.04] rounded-xl px-5 py-4"
+                        className="flex items-center gap-3 bg-dark-card border border-white/4 rounded-xl px-5 py-4"
                       >
-                        <div className="w-9 h-9 rounded-lg bg-[#1B7340]/[0.12] flex items-center justify-center flex-shrink-0">
-                          <Icon className="w-4 h-4 text-[#2ECC71]" />
+                        <div className="w-9 h-9 rounded-lg bg-brand-green/12 flex items-center justify-center flex-shrink-0">
+                          <Icon className="w-4 h-4 text-accent-green" />
                         </div>
                         <span className="text-sm font-medium text-text-secondary">
                           {cred.label}

@@ -11,6 +11,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { CONTACT } from "@/lib/constants";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -20,14 +21,14 @@ const CONTACT_POINTS = [
   {
     icon: Phone,
     label: "טלפון",
-    value: "054-345-1727",
-    href: "tel:+972543451727",
+    value: CONTACT.phone,
+    href: CONTACT.phoneHref,
   },
   {
     icon: MessageCircle,
     label: "וואטסאפ",
     value: "שלח הודעה ישירה",
-    href: "https://wa.me/972543451727",
+    href: CONTACT.whatsapp,
   },
 ];
 
@@ -97,11 +98,11 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <section id="contact" className="relative py-16 md:py-32">
-        <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+        <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
         <div className="mx-auto max-w-lg px-5 md:px-8 text-center">
-          <div className="animate-success inline-flex w-20 h-20 rounded-full bg-[#1B7340]/15 items-center justify-center mb-6">
+          <div className="animate-success inline-flex w-20 h-20 rounded-full bg-brand-green/15 items-center justify-center mb-6">
             <svg
-              className="w-10 h-10 text-[#2ECC71]"
+              className="w-10 h-10 text-accent-green"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -121,10 +122,10 @@ export default function ContactForm() {
             קיבלתי את הפרטים שלך. אחזור אליך תוך 24 שעות.
           </p>
           <a
-            href="https://wa.me/972543451727"
+            href={CONTACT.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 text-sm text-[#25D366] hover:underline underline-offset-4"
+            className="inline-flex items-center gap-2 mt-6 text-sm text-whatsapp hover:underline underline-offset-4"
           >
             <MessageCircle className="w-4 h-4" />
             רוצה תשובה מהירה יותר? שלח וואטסאפ
@@ -136,21 +137,21 @@ export default function ContactForm() {
 
   /* ── Form state ── */
   return (
-    <section id="contact" className="relative py-16 md:py-32 bg-[#0d0d1e]">
+    <section id="contact" className="relative py-16 md:py-32 bg-dark-section">
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-24 md:mb-32" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-24 md:mb-32" />
 
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#1B7340]/[0.04] blur-[100px]" />
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-[#1E6091]/[0.02] blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-green/4 blur-[100px]" />
+        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-brand-blue/2 blur-[80px]" />
       </div>
 
       <div className="relative mx-auto max-w-5xl px-5 md:px-8">
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="text-center mb-14">
-            <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
               צור קשר
             </p>
             <h2 className="text-3xl md:text-[3rem] font-black">בוא נדבר</h2>
@@ -164,9 +165,9 @@ export default function ContactForm() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12">
           {/* Form card (right side in RTL) */}
           <ScrollReveal>
-            <div className="relative bg-[#121225]/80 backdrop-blur-xl border border-white/[0.06] rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 lg:p-10">
+            <div className="relative bg-dark-card/80 backdrop-blur-xl border border-white/6 rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 lg:p-10">
               {/* Green gradient line at top */}
-              <div className="absolute top-0 inset-x-8 h-[2px] bg-gradient-to-l from-[#2ECC71] via-[#1B7340] to-transparent rounded-full" />
+              <div className="absolute top-0 inset-x-8 h-[2px] bg-gradient-to-l from-accent-green via-brand-green to-transparent rounded-full" />
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
@@ -281,12 +282,12 @@ export default function ContactForm() {
 
                   {/* WhatsApp alternative */}
                   <a
-                    href="https://wa.me/972543451727"
+                    href={CONTACT.whatsapp}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cta-btn-outline w-full py-3.5 text-sm flex items-center justify-center gap-2"
                   >
-                    <MessageCircle className="w-4 h-4 text-[#25D366]" />
+                    <MessageCircle className="w-4 h-4 text-whatsapp" />
                     או שלח הודעה בוואטסאפ
                   </a>
                 </div>
@@ -319,10 +320,10 @@ export default function ContactForm() {
                       href={cp.href}
                       target={cp.href.startsWith("http") ? "_blank" : undefined}
                       rel={cp.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-4 bg-[#121225] border border-white/[0.04] hover:border-white/[0.08] rounded-xl p-4 transition-colors duration-300"
+                      className="flex items-center gap-4 bg-dark-card border border-white/4 hover:border-white/8 rounded-xl p-4 transition-colors duration-300"
                     >
-                      <div className="w-10 h-10 rounded-lg bg-[#1B7340]/[0.12] flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-[#2ECC71]" />
+                      <div className="w-10 h-10 rounded-lg bg-brand-green/12 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-5 h-5 text-accent-green" />
                       </div>
                       <div>
                         <p className="text-xs text-text-muted">{cp.label}</p>
@@ -336,12 +337,12 @@ export default function ContactForm() {
               </div>
 
               {/* Trust points */}
-              <div className="bg-[#121225] border border-white/[0.04] rounded-xl p-5 space-y-4">
+              <div className="bg-dark-card border border-white/4 rounded-xl p-5 space-y-4">
                 {TRUST_POINTS.map((tp) => {
                   const Icon = tp.icon;
                   return (
                     <div key={tp.text} className="flex items-center gap-3">
-                      <Icon className="w-4 h-4 text-[#2ECC71] flex-shrink-0" />
+                      <Icon className="w-4 h-4 text-accent-green flex-shrink-0" />
                       <span className="text-sm text-text-secondary">
                         {tp.text}
                       </span>
@@ -351,14 +352,14 @@ export default function ContactForm() {
               </div>
 
               {/* Mini testimonial */}
-              <div className="bg-[#121225] border border-white/[0.04] rounded-xl p-5">
+              <div className="bg-dark-card border border-white/4 rounded-xl p-5">
                 <blockquote className="text-sm text-text-secondary leading-relaxed italic">
                   &ldquo;ירין שינה לי את כל הגישה למסחר. הליווי האישי עושה את כל
                   ההבדל.&rdquo;
                 </blockquote>
                 <div className="mt-3 flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#1B7340]/[0.12] flex items-center justify-center">
-                    <span className="text-xs font-bold text-[#2ECC71]">ד</span>
+                  <div className="w-7 h-7 rounded-lg bg-brand-green/12 flex items-center justify-center">
+                    <span className="text-xs font-bold text-accent-green">ד</span>
                   </div>
                   <span className="text-xs text-text-muted">ד.כ, תלמיד</span>
                 </div>

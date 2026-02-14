@@ -1,42 +1,15 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import {
   motion,
   useScroll,
   useTransform,
-  useMotionValue,
-  useInView,
-  animate,
 } from "framer-motion";
 import { TrendingUp, ArrowLeft } from "lucide-react";
 import { scrollToContact } from "@/lib/utils";
-
-/* ═══════════════════════ COUNT-UP ═══════════════════════ */
-
-function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const count = useMotionValue(0);
-
-  useEffect(() => {
-    if (isInView) {
-      const controls = animate(count, target, {
-        duration: 2,
-        ease: [0.22, 1, 0.36, 1],
-      });
-      const unsub = count.on("change", (v) => {
-        if (ref.current) ref.current.textContent = Math.round(v) + suffix;
-      });
-      return () => {
-        controls.stop();
-        unsub();
-      };
-    }
-  }, [isInView, count, target, suffix]);
-
-  return <span ref={ref}>0{suffix}</span>;
-}
+import { EASE_OUT_EXPO } from "@/lib/constants";
+import AnimatedNumber from "./AnimatedNumber";
 
 /* ═══════════════════════ CANDLESTICK DATA ═══════════════════════ */
 
@@ -108,7 +81,7 @@ function RevealLine({
         transition={{
           duration: 0.9,
           delay,
-          ease: [0.22, 1, 0.36, 1],
+          ease: EASE_OUT_EXPO,
         }}
       >
         {children}
@@ -177,7 +150,7 @@ export default function Hero() {
               className="inline-flex items-center gap-2 mx-8 text-xs font-mono whitespace-nowrap"
             >
               <span className="font-bold text-white/60">{item.symbol}</span>
-              <span className={item.up ? "text-[#2ECC71]" : "text-red-400"}>
+              <span className={item.up ? "text-accent-green" : "text-red-400"}>
                 {item.change}
               </span>
             </span>
@@ -195,7 +168,7 @@ export default function Hero() {
               <RevealLine delay={0.25}>תתחיל להרוויח</RevealLine>
               <RevealLine delay={0.4}>
                 מהשוק{" "}
-                <span className="bg-gradient-to-l from-[#2ECC71] via-[#3498db] to-[#1E6091] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-l from-accent-green via-accent-blue to-brand-blue bg-clip-text text-transparent">
                   עם ליווי אישי
                 </span>
               </RevealLine>
@@ -208,9 +181,9 @@ export default function Hero() {
               transition={{
                 duration: 0.8,
                 delay: 0.6,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE_OUT_EXPO,
               }}
-              className="mt-7 text-lg sm:text-xl text-text-secondary max-w-lg mx-auto lg:mx-0 lg:me-0 leading-relaxed border-r-2 border-[#1B7340]/50 pr-4 sm:pr-6"
+              className="mt-7 text-lg sm:text-xl text-text-secondary max-w-lg mx-auto lg:mx-0 lg:me-0 leading-relaxed border-r-2 border-brand-green/50 pr-4 sm:pr-6"
             >
               ליווי 1-על-1 במניות, אופציות, פיוצ&apos;רס וקריפטו.
               <br className="hidden sm:block" />
@@ -224,7 +197,7 @@ export default function Hero() {
               transition={{
                 duration: 0.8,
                 delay: 0.75,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE_OUT_EXPO,
               }}
               className="mt-9 flex flex-col sm:flex-row items-center lg:items-start gap-4"
             >
@@ -247,19 +220,19 @@ export default function Hero() {
               transition={{
                 duration: 0.8,
                 delay: 1.05,
-                ease: [0.22, 1, 0.36, 1],
+                ease: EASE_OUT_EXPO,
               }}
               className="mt-10 flex items-stretch justify-center lg:justify-start"
             >
               {STATS.map((s, i) => (
                 <div key={s.label} className="flex items-stretch">
                   {i > 0 && (
-                    <div className="w-px bg-white/[0.06] mx-4 sm:mx-6 self-stretch" />
+                    <div className="w-px bg-white/6 mx-4 sm:mx-6 self-stretch" />
                   )}
                   <div className="text-center lg:text-right">
                     <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
                       {s.isNumber ? (
-                        <CountUp target={s.value} suffix={s.suffix} />
+                        <AnimatedNumber target={s.value} suffix={s.suffix} />
                       ) : (
                         s.text
                       )}
@@ -280,16 +253,16 @@ export default function Hero() {
             transition={{
               duration: 1.1,
               delay: 0.5,
-              ease: [0.22, 1, 0.36, 1],
+              ease: EASE_OUT_EXPO,
             }}
             style={{ y: dashboardY }}
             className="flex-shrink-0 w-full max-w-sm lg:max-w-[440px] relative"
           >
 
             {/* ── Main chart card ── */}
-            <div className="relative bg-[#121225]/90 backdrop-blur-xl border border-white/[0.08] rounded-2xl p-6 lg:p-7">
+            <div className="relative bg-dark-card/90 backdrop-blur-xl border border-white/8 rounded-2xl p-6 lg:p-7">
               {/* Green gradient top accent */}
-              <div className="absolute top-0 inset-x-6 h-[2px] bg-gradient-to-l from-[#2ECC71] via-[#1B7340] to-transparent rounded-full" />
+              <div className="absolute top-0 inset-x-6 h-[2px] bg-gradient-to-l from-accent-green via-brand-green to-transparent rounded-full" />
 
               {/* Card header */}
               <div className="flex items-center justify-between mb-5">
@@ -299,7 +272,7 @@ export default function Hero() {
                     <span className="text-2xl font-black text-white">
                       $12,450
                     </span>
-                    <span className="text-[#2ECC71] text-sm font-bold flex items-center gap-0.5">
+                    <span className="text-accent-green text-sm font-bold flex items-center gap-0.5">
                       <TrendingUp className="w-3.5 h-3.5" />
                       +24.8%
                     </span>
@@ -311,7 +284,7 @@ export default function Hero() {
                       key={t}
                       className={`text-[10px] px-2.5 py-1 rounded-md font-medium transition-colors cursor-pointer ${
                         i === 2
-                          ? "bg-[#1B7340]/30 text-[#2ECC71]"
+                          ? "bg-brand-green/30 text-accent-green"
                           : "text-text-muted hover:text-white/60"
                       }`}
                     >
@@ -344,7 +317,7 @@ export default function Hero() {
                         transition={{
                           duration: 0.5,
                           delay: 0.9 + i * 0.06,
-                          ease: [0.22, 1, 0.36, 1],
+                          ease: EASE_OUT_EXPO,
                         }}
                       >
                         {/* Wick */}
@@ -385,7 +358,7 @@ export default function Hero() {
                     transition={{
                       duration: 1.8,
                       delay: 1.2,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: EASE_OUT_EXPO,
                     }}
                   />
 
@@ -405,17 +378,17 @@ export default function Hero() {
               </div>
 
               {/* Bottom stats row */}
-              <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+              <div className="flex items-center justify-between pt-4 border-t border-white/6">
                 <div className="text-center">
                   <p className="text-xs text-text-muted mb-0.5">Win Rate</p>
-                  <p className="text-lg font-bold text-[#2ECC71]">87%</p>
+                  <p className="text-lg font-bold text-accent-green">87%</p>
                 </div>
-                <div className="w-px h-8 bg-white/[0.06]" />
+                <div className="w-px h-8 bg-white/6" />
                 <div className="text-center">
                   <p className="text-xs text-text-muted mb-0.5">עסקאות</p>
                   <p className="text-lg font-bold text-white">142</p>
                 </div>
-                <div className="w-px h-8 bg-white/[0.06]" />
+                <div className="w-px h-8 bg-white/6" />
                 <div className="text-center">
                   <p className="text-xs text-text-muted mb-0.5">
                     Profit Factor

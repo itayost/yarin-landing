@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
+import { CONTACT } from "@/lib/constants";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -42,12 +43,9 @@ const jsonLd = {
   name: "ירין מנוח",
   alternateName: "Yarin Manoah",
   description: "מנטור אישי למסחר בשוק ההון — מניות, אופציות, פיוצ'רס וקריפטו",
-  telephone: "+972543451727",
-  email: "yarinmanoah1443@gmail.com",
-  sameAs: [
-    "https://instagram.com/yarinmanoah",
-    "https://twitter.com/yarinmanoah",
-  ],
+  telephone: CONTACT.phoneHref.replace("tel:", ""),
+  email: CONTACT.email,
+  sameAs: [CONTACT.instagram, CONTACT.twitter],
   knowsAbout: [
     "Stock Trading",
     "Options Trading",

@@ -1,10 +1,12 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowLeft } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import GlowCard from "./GlowCard";
 import { scrollToContact } from "@/lib/utils";
+import { EASE_OUT_EXPO } from "@/lib/constants";
 
 /* ═══════════════════════ FAQ DATA ═══════════════════════ */
 
@@ -31,40 +33,6 @@ const FAQS = [
   },
 ];
 
-/* ═══════════════════════ GLOW CARD ═══════════════════════ */
-
-function GlowCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      e.currentTarget.style.setProperty(
-        "--mouse-x",
-        `${e.clientX - rect.left}px`
-      );
-      e.currentTarget.style.setProperty(
-        "--mouse-y",
-        `${e.clientY - rect.top}px`
-      );
-    },
-    []
-  );
-
-  return (
-    <div
-      className={`glow-card ${className}`}
-      onMouseMove={handleMouseMove}
-    >
-      {children}
-    </div>
-  );
-}
-
 /* ═══════════════════════ COMPONENT ═══════════════════════ */
 
 export default function FAQ() {
@@ -73,11 +41,11 @@ export default function FAQ() {
   return (
     <section id="faq" className="relative py-16 md:py-32 mesh-bg">
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
 
       {/* Background glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#1B7340]/[0.02] blur-[120px] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-brand-green/2 blur-[120px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -85,7 +53,7 @@ export default function FAQ() {
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="text-center mb-14">
-            <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
               שאלות נפוצות
             </p>
             <h2 className="text-3xl md:text-[2.75rem] font-black">
@@ -107,8 +75,8 @@ export default function FAQ() {
                   <div
                     className={`rounded-2xl border transition-all duration-300 ${
                       isOpen
-                        ? "bg-[#121225] border-[#1B7340]/40 shadow-lg shadow-[#2ECC71]/[0.03]"
-                        : "bg-[#121225]/50 border-white/[0.04] hover:border-white/[0.08]"
+                        ? "bg-dark-card border-brand-green/40 shadow-lg shadow-accent-green/3"
+                        : "bg-dark-card/50 border-white/4 hover:border-white/8"
                     }`}
                   >
                     <button
@@ -120,8 +88,8 @@ export default function FAQ() {
                       <span
                         className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-colors duration-300 ${
                           isOpen
-                            ? "bg-[#2ECC71]/15 text-[#2ECC71]"
-                            : "bg-white/[0.04] text-text-muted"
+                            ? "bg-accent-green/15 text-accent-green"
+                            : "bg-white/4 text-text-muted"
                         }`}
                       >
                         {String(i + 1).padStart(2, "0")}
@@ -144,13 +112,13 @@ export default function FAQ() {
                         }}
                         className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-300 ${
                           isOpen
-                            ? "bg-[#2ECC71]/15"
-                            : "bg-white/[0.04]"
+                            ? "bg-accent-green/15"
+                            : "bg-white/4"
                         }`}
                       >
                         <ChevronDown
                           className={`w-4 h-4 transition-colors duration-300 ${
-                            isOpen ? "text-[#2ECC71]" : "text-text-muted"
+                            isOpen ? "text-accent-green" : "text-text-muted"
                           }`}
                         />
                       </motion.div>
@@ -164,19 +132,19 @@ export default function FAQ() {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{
                             duration: 0.3,
-                            ease: [0.22, 1, 0.36, 1],
+                            ease: EASE_OUT_EXPO,
                           }}
                           className="overflow-hidden"
                         >
                           <div className="px-6 pb-6 pr-8 sm:pr-20">
-                            <div className="border-r-2 border-[#2ECC71]/20 pr-5">
+                            <div className="border-r-2 border-accent-green/20 pr-5">
                               <motion.p
                                 initial={{ y: -8, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{
                                   duration: 0.3,
                                   delay: 0.05,
-                                  ease: [0.22, 1, 0.36, 1],
+                                  ease: EASE_OUT_EXPO,
                                 }}
                                 className="text-text-secondary leading-relaxed text-[15px]"
                               >
@@ -197,7 +165,7 @@ export default function FAQ() {
         {/* ── Bottom CTA card ── */}
         <ScrollReveal delay={400}>
           <div className="mt-10 animated-border rounded-2xl p-[1.5px]">
-            <div className="bg-[#0f0f22] rounded-2xl p-8 text-center">
+            <div className="bg-dark-surface rounded-2xl p-8 text-center">
               <p className="text-lg font-bold text-white mb-2">
                 לא מצאת תשובה?
               </p>

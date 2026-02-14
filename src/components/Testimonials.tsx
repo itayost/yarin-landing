@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { Star, Quote, CheckCircle2 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import GlowCard from "./GlowCard";
 
 /* ═══════════════════════ TESTIMONIALS DATA ═══════════════════════ */
 
@@ -75,40 +75,6 @@ function Stars({ count, size = "sm" }: { count: number; size?: "sm" | "md" }) {
   );
 }
 
-/* ═══════════════════════ GLOW CARD ═══════════════════════ */
-
-function GlowCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      e.currentTarget.style.setProperty(
-        "--mouse-x",
-        `${e.clientX - rect.left}px`
-      );
-      e.currentTarget.style.setProperty(
-        "--mouse-y",
-        `${e.clientY - rect.top}px`
-      );
-    },
-    []
-  );
-
-  return (
-    <div
-      className={`glow-card group ${className}`}
-      onMouseMove={handleMouseMove}
-    >
-      {children}
-    </div>
-  );
-}
-
 /* ═══════════════════════ TESTIMONIAL CARD ═══════════════════════ */
 
 function TestimonialCard({
@@ -121,23 +87,23 @@ function TestimonialCard({
   return (
     <GlowCard className="h-full rounded-2xl">
       <div
-        className={`relative bg-[#121225] border rounded-2xl flex flex-col h-full transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
+        className={`relative bg-dark-card border rounded-2xl flex flex-col h-full transition-all duration-300 hover:-translate-y-1 overflow-hidden ${
           featured
-            ? "border-[#2ECC71]/15 p-5 sm:p-8 lg:p-10"
-            : "border-white/[0.04] hover:border-white/[0.08] p-5 sm:p-7 lg:p-8"
+            ? "border-accent-green/15 p-5 sm:p-8 lg:p-10"
+            : "border-white/4 hover:border-white/8 p-5 sm:p-7 lg:p-8"
         }`}
       >
         {/* Featured accent glow */}
         {featured && (
           <div
-            className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-[#2ECC71]/[0.06] via-transparent to-transparent pointer-events-none"
+            className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-accent-green/6 via-transparent to-transparent pointer-events-none"
             aria-hidden="true"
           />
         )}
 
         {/* Decorative quote */}
         <Quote
-          className={`relative z-10 mb-4 text-[#2ECC71]/[0.08] ${
+          className={`relative z-10 mb-4 text-accent-green/8 ${
             featured ? "w-12 h-12" : "w-9 h-9"
           }`}
         />
@@ -153,16 +119,16 @@ function TestimonialCard({
 
         {/* Duration tag */}
         <div className="relative z-10 mt-5 mb-5">
-          <span className="text-xs font-medium text-[#2ECC71]/70 bg-[#2ECC71]/[0.06] px-3 py-1.5 rounded-lg">
+          <span className="text-xs font-medium text-accent-green/70 bg-accent-green/6 px-3 py-1.5 rounded-lg">
             {t.duration}
           </span>
         </div>
 
         {/* Footer: name + stars */}
-        <div className="relative z-10 flex items-center justify-between pt-5 border-t border-white/[0.04]">
+        <div className="relative z-10 flex items-center justify-between pt-5 border-t border-white/4">
           <div className="flex items-center gap-3">
             <div
-              className={`rounded-xl bg-[#1B7340]/[0.12] flex items-center justify-center text-[#2ECC71] font-bold ${
+              className={`rounded-xl bg-brand-green/12 flex items-center justify-center text-accent-green font-bold ${
                 featured ? "w-11 h-11 text-base" : "w-9 h-9 text-sm"
               }`}
             >
@@ -171,7 +137,7 @@ function TestimonialCard({
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="font-semibold text-sm">{t.name}</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#2ECC71]/60" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-accent-green/60" />
               </div>
               <span className="text-xs text-text-muted">{t.role}</span>
             </div>
@@ -189,18 +155,18 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="relative py-16 md:py-32 bg-[#080818]"
+      className="relative py-16 md:py-32 bg-dark-deep"
     >
       {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/[0.06] to-transparent mb-8 md:mb-24" />
+      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
 
       {/* Ambient background */}
       <div
-        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#1B7340]/[0.03] blur-[150px] pointer-events-none"
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-green/3 blur-[150px] pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-[#1E6091]/[0.02] blur-[120px] pointer-events-none"
+        className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-brand-blue/2 blur-[120px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -208,7 +174,7 @@ export default function Testimonials() {
         {/* ── Header ── */}
         <ScrollReveal>
           <div className="text-center mb-6">
-            <p className="text-[#2ECC71] text-sm font-semibold tracking-wider uppercase mb-3">
+            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
               ביקורות
             </p>
             <h2 className="text-3xl md:text-[3rem] font-black">

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, Phone, X } from "lucide-react";
+import { CONTACT } from "@/lib/constants";
 
 export default function FloatingContact() {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,7 @@ export default function FloatingContact() {
             className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${
               open
                 ? "bg-white/10 backdrop-blur-xl border border-white/10"
-                : "bg-[#25D366] hover:bg-[#20BD5A] shadow-[0_0_30px_rgba(37,211,102,0.3)]"
+                : "bg-whatsapp hover:bg-[#20BD5A] shadow-[0_0_30px_rgba(37,211,102,0.3)]"
             }`}
             aria-label="אפשרויות יצירת קשר"
           >
@@ -64,25 +65,25 @@ export default function FloatingContact() {
             {open && (
               <>
                 <motion.a
-                  href="https://wa.me/972543451727"
+                  href={CONTACT.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
                   initial={{ scale: 0, opacity: 0, y: 20 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   exit={{ scale: 0, opacity: 0, y: 20 }}
                   transition={{ duration: 0.2, delay: 0.05 }}
-                  className="w-12 h-12 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                  className="w-12 h-12 rounded-full bg-whatsapp flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
                   aria-label="WhatsApp"
                 >
                   <MessageCircle className="w-5 h-5 text-white" />
                 </motion.a>
                 <motion.a
-                  href="tel:0543451727"
+                  href={CONTACT.phoneTel}
                   initial={{ scale: 0, opacity: 0, y: 20 }}
                   animate={{ scale: 1, opacity: 1, y: 0 }}
                   exit={{ scale: 0, opacity: 0, y: 20 }}
                   transition={{ duration: 0.2, delay: 0.1 }}
-                  className="w-12 h-12 rounded-full bg-[#1B7340] flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+                  className="w-12 h-12 rounded-full bg-brand-green flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
                   aria-label="טלפון"
                 >
                   <Phone className="w-5 h-5 text-white" />
