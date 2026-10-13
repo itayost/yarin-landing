@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { scrollToContact } from "@/lib/utils";
 import { EASE_OUT_EXPO } from "@/lib/constants";
+import { IMAGES } from "@/lib/content";
 
 /* ═══════════════════════ NAV DATA ═══════════════════════ */
 
 const NAV_LINKS = [
-  { label: "למה ליווי?", href: "#why" },
-  { label: "חבילות", href: "#services" },
-  { label: "אודות", href: "#about" },
+  { label: "מי אני", href: "#about" },
+  { label: "מול המסכים", href: "#screens" },
+  { label: "הגישה שלי", href: "#approach" },
   { label: "ביקורות", href: "#testimonials" },
   { label: "שאלות נפוצות", href: "#faq" },
 ];
@@ -125,7 +127,15 @@ export default function Navbar() {
               }}
               className="group flex items-center gap-2"
             >
-              <span className="text-xl font-extrabold tracking-tight text-accent-green transition-all duration-300 group-hover:drop-shadow-[0_0_12px_rgba(46,204,113,0.3)]">
+              <Image
+                src={IMAGES.logoMark}
+                alt=""
+                width={36}
+                height={38}
+                priority
+                className="h-9 w-auto transition-transform duration-300 group-hover:-rotate-6"
+              />
+              <span className="text-xl font-extrabold tracking-tight text-accent-green">
                 ירין
               </span>
               <span className="text-xl font-medium tracking-tight text-white">
@@ -157,7 +167,7 @@ export default function Navbar() {
             <div className="hidden md:block">
               <button
                 onClick={scrollToContact}
-                className="cta-btn text-sm px-6 py-2.5 navbar-cta"
+                className="cta-btn text-sm px-6 py-2.5"
               >
                 בוא נדבר
               </button>

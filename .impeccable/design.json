@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-13T12:00:00+00:00",
+  "title": "Design System: Yarin Manoah, Personal Trading Mentor",
+  "extensions": {
+    "colorMeta": {
+      "ground-black": {
+        "role": "neutral",
+        "displayName": "Terminal Black",
+        "canonical": "oklch(0% 0 0)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "graphite-card": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "oklch(17.8% 0 0)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "section-black": {
+        "role": "neutral",
+        "displayName": "Section Black",
+        "canonical": "oklch(12.9% 0 0)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "deep-black": {
+        "role": "neutral",
+        "displayName": "Deep Black",
+        "canonical": "oklch(9.7% 0 0)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "brand-green": {
+        "role": "primary",
+        "displayName": "Mentor Green",
+        "canonical": "oklch(56% 0.134 153)",
+        "tonalRamp": [
+          "#001004",
+          "#002D13",
+          "#014D25",
+          "#037139",
+          "#2C9355",
+          "#53B675",
+          "#7BDD9A",
+          "#C7FFD5"
+        ]
+      },
+      "accent-green": {
+        "role": "secondary",
+        "displayName": "Ticker Green",
+        "canonical": "oklch(74.6% 0.181 152)",
+        "tonalRamp": [
+          "#000F04",
+          "#042C14",
+          "#014E25",
+          "#10703A",
+          "#18954F",
+          "#09BD63",
+          "#50E588",
+          "#C8FED5"
+        ]
+      },
+      "pen-silver": {
+        "role": "tertiary",
+        "displayName": "Yarin's Pen",
+        "canonical": "oklch(87.1% 0.005 286)",
+        "tonalRamp": [
+          "#0B0B0D",
+          "#242427",
+          "#3F3F43",
+          "#5D5D61",
+          "#7D7D80",
+          "#9E9EA2",
+          "#C4C4C7",
+          "#EEEEF2"
+        ]
+      },
+      "whatsapp-green": {
+        "role": "neutral",
+        "displayName": "WhatsApp Green",
+        "canonical": "oklch(76.1% 0.201 150)",
+        "tonalRamp": [
+          "#001003",
+          "#012D10",
+          "#094D22",
+          "#027131",
+          "#019743",
+          "#28BC5C",
+          "#45E779",
+          "#CAFED3"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Paper White",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "#0B0B0B",
+          "#242424",
+          "#404040",
+          "#5D5D5D",
+          "#7D7D7D",
+          "#9E9E9E",
+          "#C4C4C4",
+          "#EEEEEE"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Zinc",
+        "canonical": "oklch(71.2% 0.013 286)",
+        "tonalRamp": [
+          "#0B0A10",
+          "#23232A",
+          "#3F3F46",
+          "#5D5D65",
+          "#7C7C85",
+          "#9D9DA6",
+          "#C3C3CC",
+          "#EDEDF7"
+        ]
+      },
+      "error-red": {
+        "role": "neutral",
+        "displayName": "Error Red",
+        "canonical": "oklch(63.7% 0.208 25)",
+        "tonalRamp": [
+          "#1E0001",
+          "#490407",
+          "#781115",
+          "#AF101E",
+          "#DE3136",
+          "#FD655F",
+          "#FEABA3",
+          "#FEE9E7"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Centred section titles; About hook stretches to 4.5rem."
+      },
+      "pillar": {
+        "displayName": "Pillar",
+        "purpose": "The four belief words in Approach."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Headings inside notes and panels."
+      },
+      "quote": {
+        "displayName": "Quote",
+        "purpose": "Review text inside testimonial notes."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs at 75 to 80% white, 56 to 62ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Form labels, nav links, figure labels."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Trade screenshot captions, LTR, tabular."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pinned-note",
+        "value": "0 18px 40px -14px rgba(0,0,0,0.65)",
+        "purpose": "Testimonials, contact form, success panel, chosen contrast card, hero trust notes."
+      },
+      {
+        "name": "lifted-frame",
+        "value": "0 24px 50px -18px rgba(0,0,0,0.75)",
+        "purpose": "Trade screenshot frames and the fit note."
+      },
+      {
+        "name": "portrait",
+        "value": "0 30px 60px -24px rgba(0,0,0,0.8)",
+        "purpose": "About portrait only."
+      },
+      {
+        "name": "cta-glow",
+        "value": "0 0 40px color-mix(in srgb, #2ECC71 25%, transparent)",
+        "purpose": "Primary button hover."
+      },
+      {
+        "name": "nav-glass",
+        "value": "0 4px 30px rgba(0,0,0,0.2)",
+        "purpose": "Scrolled navbar (0.3 when compact)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "The single easing for entrances and state transitions."
+      },
+      {
+        "name": "hero-rise",
+        "value": "1s ease-out-expo; from opacity 0.35, translateY(14px), blur(8px)",
+        "purpose": "Hero content entrance, staggered via --d."
+      },
+      {
+        "name": "hero-pin",
+        "value": "0.8s ease-out-expo; from opacity 0.35, translateY(-12px) scale(1.04), blur(6px)",
+        "purpose": "Trust notes landing as if pinned."
+      },
+      {
+        "name": "hero-draw",
+        "value": "0.75s ease-out-expo; stroke-dashoffset 1 to 0 (pathLength 1)",
+        "purpose": "Pen strokes drawing in."
+      },
+      {
+        "name": "pen-on-view",
+        "value": "hero-draw on animation-timeline view(), range entry 20% to cover 35%",
+        "purpose": "Pen strokes below the fold, drawn on scroll; static where unsupported."
+      },
+      {
+        "name": "pen-check",
+        "value": "hero-draw 0.6s ease-out-expo, 0.15s delay",
+        "purpose": "The pen ticks the success check."
+      },
+      {
+        "name": "success-in",
+        "value": "0.5s ease-out-expo; from opacity 0.4, translateY(10px)",
+        "purpose": "Success panel replacing the form."
+      },
+      {
+        "name": "field-error-in",
+        "value": "0.18s ease-out; from opacity 0, translateY(-3px)",
+        "purpose": "Field and submission errors dropping in."
+      },
+      {
+        "name": "faq-details",
+        "value": "::details-content block-size 0 to auto, 0.4s open / 0.25s close, ease-out-expo; answer fades and rises 4px",
+        "purpose": "FAQ answers open with their real height; native instant toggle where unsupported."
+      },
+      {
+        "name": "cta-press",
+        "value": "translateY(0) scale(0.98), 0.1s",
+        "purpose": "Primary button press feedback."
+      },
+      {
+        "name": "hero-settle",
+        "value": "2.4s ease-out-expo; from scale(1.06)",
+        "purpose": "Hero trade-wall image settling."
+      },
+      {
+        "name": "marquee-scroll",
+        "value": "linear infinite, translateX(50%) per loop; duration = run width / speed (40px/s default)",
+        "purpose": "Evidence marquees; paused on hover, focus-within and offscreen."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transitions none; marquee becomes overflow-x auto; MotionConfig reducedMotion=\"user\"",
+        "purpose": "Every animation above is disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single call to act: green, bold, arrow forward (left in RTL).",
+      "html": "<a class=\"ds-cta\" href=\"#contact\" dir=\"rtl\">בוא נדבר <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/></svg></a>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-cta{display:inline-flex;align-items:center;gap:.5rem;background:var(--color-brand-green,#1F8A4C);color:#fff;font-family:Heebo,sans-serif;font-weight:700;font-size:1.125rem;padding:1rem 2.5rem;border-radius:.75rem;text-decoration:none;transition:background-color .25s ease,box-shadow .35s cubic-bezier(0.22, 1, 0.36, 1),transform .35s cubic-bezier(0.22, 1, 0.36, 1);}.ds-cta:hover{background:var(--color-accent-green,#2ECC71);box-shadow:0 0 40px color-mix(in srgb,#2ECC71 25%,transparent);transform:translateY(-2px);}.ds-cta:active{transform:translateY(0) scale(.98);transition-duration:.1s;}.ds-cta:focus-visible{outline:2px solid var(--color-accent-green,#2ECC71);outline-offset:3px;}"
+    },
+    {
+      "name": "Pen Text Link",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Secondary link with a thin silver-pen underline that tightens on hover.",
+      "html": "<a class=\"ds-pen-link\" href=\"#screens\" dir=\"rtl\">דוגמאות מהמסכים</a>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-pen-link{color:rgba(255,255,255,.8);font-family:Heebo,sans-serif;font-weight:500;text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--color-marker) 50%,transparent);text-decoration-thickness:1px;text-underline-offset:8px;transition:color .3s ease,text-decoration-color .3s ease,text-underline-offset .3s cubic-bezier(0.22, 1, 0.36, 1);}.ds-pen-link:hover{color:#fff;text-decoration-color:var(--color-marker);text-underline-offset:5px;}.ds-pen-link:focus-visible{outline:2px solid var(--color-marker);outline-offset:4px;border-radius:4px;}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Near-transparent field on a graphite note; green focus ring.",
+      "html": "<label class=\"ds-field\" dir=\"rtl\"><span>שם</span><input class=\"ds-input\" type=\"text\"></label>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-field{display:block;font-family:Heebo,sans-serif;background:var(--color-dark-card);padding:1.5rem;}.ds-field span{display:block;margin-bottom:.5rem;font-size:.875rem;font-weight:500;color:rgba(255,255,255,.85);}.ds-input{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:#fff;padding:14px 18px;font-size:16px;border-radius:.75rem;outline:none;transition:border-color .3s ease,background-color .3s ease;}.ds-input:focus{border-color:var(--color-brand-green);background:color-mix(in srgb,var(--color-brand-green) 4%,transparent);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-brand-green) 12%,transparent),0 0 20px color-mix(in srgb,var(--color-accent-green) 6%,transparent);}"
+    },
+    {
+      "name": "Review Note",
+      "kind": "card",
+      "refersTo": "note-card",
+      "description": "Graphite tilted note carrying a review inside the marquee.",
+      "html": "<figure class=\"ds-note\" dir=\"rtl\"><div class=\"ds-stars\" role=\"img\" aria-label=\"5 כוכבים מתוך 5\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"#2ECC71\" stroke=\"#2ECC71\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"#2ECC71\" stroke=\"#2ECC71\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"#2ECC71\" stroke=\"#2ECC71\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"#2ECC71\" stroke=\"#2ECC71\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"#2ECC71\" stroke=\"#2ECC71\" stroke-width=\"2\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z\"/></svg></div><blockquote>מכללה מעולה, יחס אישי מצוין.</blockquote><figcaption><b>Asher Malja · </b>ביקורת 5 כוכבים</figcaption></figure>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-note{margin:1rem;max-width:26rem;font-family:Heebo,sans-serif;background:var(--color-dark-card);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:1.25rem;padding:2rem;box-shadow:0 18px 40px -14px rgba(0,0,0,.65);transform:rotate(-1deg);}.ds-stars{display:flex;gap:2px;}.ds-note blockquote{margin:1.25rem 0 0;font-size:1.25rem;font-weight:500;line-height:1.625;color:rgba(255,255,255,.9);}.ds-note figcaption{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.1);font-size:.875rem;color:rgba(255,255,255,.65);}.ds-note b{color:#fff;}"
+    },
+    {
+      "name": "Trade Frame",
+      "kind": "card",
+      "refersTo": "trade-frame",
+      "description": "Real screenshot in a graphite mat, tilted, with an LTR instrument caption.",
+      "html": "<figure class=\"ds-frame\"><div class=\"ds-frame-well\"></div><figcaption dir=\"ltr\">Nasdaq 100 Futures · 5m</figcaption></figure>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-frame{width:18.5rem;margin:1rem;background:var(--color-dark-card);border:1px solid rgba(255,255,255,.12);border-radius:1.75rem;padding:.5rem;box-shadow:0 24px 50px -18px rgba(0,0,0,.75);transform:rotate(-1.2deg);transition:transform .5s;font-family:Heebo,sans-serif;}.ds-frame:hover{transform:rotate(-1.2deg) translateY(-6px);}.ds-frame-well{height:20rem;border-radius:1.3rem;background:linear-gradient(#fff,#eef1f5);}.ds-frame figcaption{padding:.75rem .75rem .375rem;text-align:center;font-size:.75rem;font-weight:500;letter-spacing:.025em;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums;}"
+    },
+    {
+      "name": "Evidence Marquee",
+      "kind": "custom",
+      "refersTo": "trade-frame",
+      "description": "Seamless auto-moving rail with faded edges; pauses on hover and focus; hand-scrolled under reduced motion.",
+      "html": "<div class=\"ds-marquee\" role=\"region\" aria-label=\"דוגמאות\" dir=\"rtl\"><div class=\"ds-marquee-track\"><ol><li>NQ · 5m</li><li>ES · 15m</li><li>GC · 1h</li><li>CL · 5m</li></ol><ol aria-hidden=\"true\"><li>NQ · 5m</li><li>ES · 15m</li><li>GC · 1h</li><li>CL · 5m</li></ol></div></div><p class=\"ds-marquee-note\" dir=\"rtl\">הדוגמאות מוצגות לצורכי לימוד והמחשה בלבד.</p>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-marquee{overflow:hidden;padding-block:.75rem 2rem;background:var(--color-dark);-webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent);font-family:Heebo,sans-serif;}.ds-marquee-track{display:flex;width:max-content;animation:ds-marquee 16s linear infinite;}.ds-marquee:hover .ds-marquee-track,.ds-marquee:focus-within .ds-marquee-track{animation-play-state:paused;}.ds-marquee ol{display:flex;margin:0;padding:0;list-style:none;}.ds-marquee li{margin-inline-end:1.5rem;width:10rem;height:12rem;display:grid;place-items:center;background:var(--color-dark-card);border:1px solid rgba(255,255,255,.12);border-radius:1.75rem;color:rgba(255,255,255,.7);font-size:.75rem;direction:ltr;box-shadow:0 24px 50px -18px rgba(0,0,0,.75);}.ds-marquee li:nth-child(odd){transform:rotate(-1deg);}.ds-marquee li:nth-child(even){transform:rotate(1deg);margin-top:2rem;}@keyframes ds-marquee{to{transform:translateX(50%)}}.ds-marquee-note{margin:.5rem auto 0;text-align:center;font-family:Heebo,sans-serif;font-size:.875rem;color:rgba(255,255,255,.65);}@media (prefers-reduced-motion:reduce){.ds-marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}.ds-marquee-track{animation:none}.ds-marquee ol[aria-hidden]{display:none}}"
+    },
+    {
+      "name": "Pen Underline and Strike",
+      "kind": "custom",
+      "refersTo": "pen-silver",
+      "description": "Hand-drawn silver stroke under, or through, the one phrase that carries a section.",
+      "html": "<h2 class=\"ds-pen-h\" dir=\"rtl\">ככה זה נראה <span>מול המסכים<svg class=\"ds-under\" viewBox=\"0 0 300 24\" preserveAspectRatio=\"none\" fill=\"none\" aria-hidden=\"true\"><path d=\"M6 14 C 80 6, 190 6, 294 12\" stroke=\"var(--color-marker)\" stroke-width=\"5\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\" pathLength=\"1\"/></svg></span></h2><p class=\"ds-pen-h ds-pen-p\" dir=\"rtl\">בלי קיצורי דרך ו<span><s>הבטחות שווא</s><svg class=\"ds-strike\" viewBox=\"0 0 300 24\" preserveAspectRatio=\"none\" fill=\"none\" aria-hidden=\"true\"><path d=\"M4 14 C 70 9, 160 16, 296 8\" stroke=\"var(--color-marker)\" stroke-width=\"5\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\" pathLength=\"1\"/></svg></span>.</p>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-pen-h{isolation:isolate;font-family:Heebo,sans-serif;font-weight:900;font-size:2.75rem;line-height:1.05;letter-spacing:-.02em;color:#fff;margin:0;padding:1rem;text-align:center;background:var(--color-dark);}.ds-pen-p{font-size:2rem;}.ds-pen-h span{position:relative;display:inline-block;}.ds-pen-h s{text-decoration-color:transparent;}.ds-pen-h svg{position:absolute;inset-inline:-3%;width:106%;height:.32em;pointer-events:none;}.ds-under{bottom:-.16em;z-index:-1;}.ds-strike{top:52%;transform:translateY(-50%);}.ds-pen-h path{stroke-dasharray:1;animation:ds-draw .75s cubic-bezier(0.22, 1, 0.36, 1) both;}@keyframes ds-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}@media (prefers-reduced-motion:reduce){.ds-pen-h path{animation:none}}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "Black glass navbar once scrolled; Zinc links, active pill, green CTA.",
+      "html": "<nav class=\"ds-nav\" dir=\"rtl\"><span class=\"ds-logo\"><b>ירין</b> מנוח</span><div><a class=\"ds-nav-link is-active\" href=\"#about\">מי אני</a><a class=\"ds-nav-link\" href=\"#screens\">מול המסכים</a><a class=\"ds-nav-link\" href=\"#reviews\">ביקורות</a></div><a class=\"ds-nav-cta\" href=\"#contact\">בוא נדבר</a></nav>",
+      "css": ":root{--color-dark:#000000;--color-dark-card:#111111;--color-brand-green:#1F8A4C;--color-accent-green:#2ECC71;--color-marker:#D4D4D8;}.ds-nav{display:flex;align-items:center;justify-content:space-between;height:72px;padding:0 2rem;font-family:Heebo,sans-serif;background:color-mix(in srgb,var(--color-dark) 65%,transparent);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.06);box-shadow:0 4px 30px rgba(0,0,0,.2);}.ds-logo{font-size:1.25rem;font-weight:500;color:#fff;}.ds-logo b{font-weight:800;color:var(--color-accent-green);}.ds-nav div{display:flex;gap:.25rem;}.ds-nav-link{font-size:.875rem;padding:.375rem .875rem;border-radius:999px;color:#A1A1AA;text-decoration:none;transition:color .3s,background-color .3s;}.ds-nav-link:hover{color:#fff;}.ds-nav-link.is-active{color:#fff;background:rgba(255,255,255,.06);}.ds-nav-link:focus-visible{outline:2px solid var(--color-marker);outline-offset:2px;}.ds-nav-cta{background:var(--color-brand-green);color:#fff;font-weight:700;font-size:.875rem;padding:.625rem 1.5rem;border-radius:.75rem;text-decoration:none;transition:background-color .25s ease;}.ds-nav-cta:hover{background:var(--color-accent-green);}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Notes Pinned to the Screens",
+    "overview": "The site is a trading terminal at night: a pure black ground, the same black a charting platform uses in dark mode, with real trade screens glowing out of it. Everything that carries a claim sits on that black as a graphite note: a card one step lighter than the ground with a faint white edge, a soft shadow that falls downward, and a tilt of about one degree, as if pinned by hand over the screens. The real material (trade screenshots, Yarin's portrait, real reviews and WhatsApp messages) is framed rather than decorated; proof is the ornament.\n\nThe world is neutral. Black and graphite carry no hue, so green is the only working colour: deep brand green for the action, bright accent green for numbers that went up, check marks, stars and active states. Over that, one human mark: Yarin's silver pen, the colour of the YM logo, a hand-drawn marker stroke that underlines (or strikes through) the single phrase in a section that matters and draws itself in. The pen is rare on purpose. Type is a single family, Heebo, pushed to Black (900) for headings so Hebrew headlines read as confident and spoken, with calm regular-weight body copy at generous leading. Section headings are centred.\n\nDensity is editorial rather than dashboard: long vertical passages, two moving rails of evidence (trades and reviews) that drift sideways on their own and stop when the reader reaches for them, and quiet hairline ledgers for facts. Motion is short and functional: content rises out of a soft blur, notes land as if pinned, the pen draws, FAQ answers open with their real height, the form confirms with a pen tick. The only loops are the evidence rails, and they pause on hover, on focus and offscreen.",
+    "keyCharacteristics": [
+      "Pure black ground with near-black bands (#030303, #070707); graphite cards are the only lifted tone.",
+      "Graphite tilted note cards (12% white border, soft downward shadow, rotation within about 1.5deg).",
+      "One silver pen stroke per section at most, drawn with `pathLength=\"1\"`.",
+      "Heebo Black headings, centred; regular body at 1.75 leading, 56 to 62ch measure.",
+      "Seamless auto-moving evidence marquees that pause on hover, focus and offscreen, and become a hand-scrolled row under reduced motion.",
+      "A disclaimer sits beside every trade example or performance figure."
+    ],
+    "rules": [
+      {
+        "name": "The One Pen Rule",
+        "body": "The silver pen appears as at most one hand-drawn stroke per section, under (or through) the phrase that carries the section, plus focus rings and the hero link underline. It is never a fill, a text colour, or a second accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Green Means Up Rule",
+        "body": "Ticker green marks positive numbers, completion and the call to act. Neutral figures stay white; nothing negative is ever green.",
+        "section": "colors"
+      },
+      {
+        "name": "The Neutral Terminal Rule",
+        "body": "Grounds and cards carry no hue. Green is the only brand chroma on the page; red and WhatsApp green appear only in their functional roles.",
+        "section": "colors"
+      },
+      {
+        "name": "The Black Heading Rule",
+        "body": "Every heading is weight 900 with negative tracking; there is no light or thin display style in this world.",
+        "section": "typography"
+      },
+      {
+        "name": "The Figures Stay LTR Rule",
+        "body": "Numbers, tickers and English trading terms are isolated with `bdi`/`dir=\"ltr\"` and set with tabular numerals, inside otherwise RTL text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Not Plastic Rule",
+        "body": "A note's shadow always falls downward with negative spread; it never haloes evenly or offsets hard.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** set a disclaimer in the same component as any trade screenshot, performance figure or result (the marquee note slot); never let a trade example appear alone.",
+      "**Do** put real material in frames: Graphite mat, 1.75rem corners, 12% border, Lifted frame shadow, a slight tilt.",
+      "**Do** keep tilts within about 1.5deg on content and alternate their direction between neighbours.",
+      "**Do** reserve the silver pen for one drawn stroke per section and for focus rings.",
+      "**Do** make every heading Heebo 900, centre section headings, and isolate figures and English terms as LTR with tabular numerals.",
+      "**Do** add any new animation to the reduced-motion handling so content is visible without it.",
+      "**Do** route new evidence rails through the shared Evidence Marquee rather than building another slider, and keep its pause-on-hover, focus and offscreen behaviour."
+    ],
+    "donts": [
+      "**Don't** use the silver pen as text, fills or a second accent colour.",
+      "**Don't** reintroduce blue, or tint grounds and cards toward any hue; the terminal is neutral and green is its only brand colour.",
+      "**Don't** colour neutral or negative figures green.",
+      "**Don't** give notes hard offset shadows, even halos, or coloured shadows; only the primary CTA (and the WhatsApp floating button, in its own green) glows.",
+      "**Don't** introduce a second typeface or light display weights.",
+      "**Don't** caption a trade screenshot with an outcome; captions name only instrument and timeframe.",
+      "**Don't** use WhatsApp green outside the WhatsApp channel."
+    ]
+  }
+}

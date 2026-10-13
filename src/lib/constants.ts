@@ -11,5 +11,5 @@ export const CONTACT = {
   whatsapp: "https://wa.me/972543451727",
   email: "yarinmanoah1443@gmail.com",
   instagram: "https://instagram.com/yarinmanoah",
-  twitter: "https://twitter.com/yarinmanoah",
+  twitter: "https://x.com/yarinmanoah",
 } as const;

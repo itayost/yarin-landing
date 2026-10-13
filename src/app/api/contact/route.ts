@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
+import { GOAL_OPTIONS } from "@/lib/content";
 
 interface ContactPayload {
   name: string;
   phone: string;
-  message?: string;
+  goal: string;
 }
 
 /* ── Simple in-memory rate limiter ── */
@@ -75,14 +76,23 @@ export async function POST(request: Request) {
       );
     }
 
-    const phone = sanitize(body.phone);
-    const message = sanitize(body.message ?? "");
+    const goal = (GOAL_OPTIONS as readonly string[]).includes(
+      body.goal
+    )
+      ? body.goal
+      : "";
+    if (!goal) {
+      return NextResponse.json(
+        { error: "Goal selection is required" },
+        { status: 400 }
+      );
+    }
 
-    /* Log (visible in Vercel logs) */
+    const phone = sanitize(body.phone);
+
+    /* Log without personal data (visible in Vercel logs) */
     console.log("New contact form submission:", {
-      name,
-      phone,
-      message: message || "(no message)",
+      goal,
       timestamp: new Date().toISOString(),
     });
 
@@ -94,7 +104,7 @@ export async function POST(request: Request) {
 
         const safeName = escapeHtml(name);
         const safePhone = escapeHtml(phone);
-        const safeMessage = escapeHtml(message || "לא צורפה הודעה");
+        const safeGoal = escapeHtml(goal);
 
         await resend.emails.send({
           from: process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev",
@@ -105,7 +115,7 @@ export async function POST(request: Request) {
               <h2 style="color: #2ECC71;">פנייה חדשה מהאתר</h2>
               <p><strong>שם:</strong> ${safeName}</p>
               <p><strong>טלפון:</strong> <a href="tel:${cleanPhone}">${safePhone}</a></p>
-              <p><strong>הודעה:</strong> ${safeMessage}</p>
+              <p><strong>מה רוצה לקבל מהליווי:</strong> ${safeGoal}</p>
               <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
               <p style="color: #888; font-size: 12px;">${new Date().toLocaleString("he-IL")}</p>
             </div>
@@ -121,7 +131,7 @@ export async function POST(request: Request) {
       fetch(process.env.WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, message }),
+        body: JSON.stringify({ name, phone, goal }),
       }).catch(() => {
         /* non-blocking */
       });

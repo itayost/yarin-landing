@@ -1,81 +1,80 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import {
-  Lock,
-  MessageCircle,
-  Phone,
-  Clock,
-  Users,
-  ArrowLeft,
-  CheckCircle2,
-} from "lucide-react";
-import ScrollReveal from "./ScrollReveal";
+import Link from "next/link";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import { CONTACT } from "@/lib/constants";
+import { CONTACT_SECTION, GOAL_OPTIONS } from "@/lib/content";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
+type FieldErrors = { name?: string; phone?: string; goal?: string };
 
-/* ═══════════════════════ CONTACT INFO ═══════════════════════ */
+const PHONE_LOCAL = /^0\d{8,9}$/;
+const PHONE_INTL = /^\+?\d{10,13}$/;
 
-const CONTACT_POINTS = [
-  {
-    icon: Phone,
-    label: "טלפון",
-    value: CONTACT.phone,
-    href: CONTACT.phoneHref,
-  },
-  {
-    icon: MessageCircle,
-    label: "וואטסאפ",
-    value: "שלח הודעה ישירה",
-    href: CONTACT.whatsapp,
-  },
-];
+/* ═══════════════════════ VALIDATION ═══════════════════════ */
 
-const TRUST_POINTS = [
-  { icon: Clock, text: "תגובה תוך 24 שעות" },
-  { icon: Users, text: "ליווי אישי 1-על-1" },
-  { icon: CheckCircle2, text: "ללא התחייבות" },
-];
+function validate(name: string, phone: string, goal: string): FieldErrors {
+  const errors: FieldErrors = {};
+  if (!name.trim()) errors.name = "נא להזין שם";
+
+  const cleanedPhone = phone.replace(/[\s\-()]/g, "");
+  if (!cleanedPhone) errors.phone = "נא להזין מספר טלפון";
+  else if (!PHONE_LOCAL.test(cleanedPhone) && !PHONE_INTL.test(cleanedPhone))
+    errors.phone = "מספר הטלפון לא תקין";
+
+  if (!goal) errors.goal = "נא לבחור את התשובה המתאימה";
+  return errors;
+}
+
+/* ═══════════════════════ FIELD ERROR ═══════════════════════ */
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} className="field-error-in mt-2 text-sm text-red-300">
+      {message}
+    </p>
+  );
+}
+
+/* ═══════════════════════ SUCCESS ═══════════════════════ */
+
+function SuccessPanel({ firstName }: { firstName: string }) {
+  return (
+    <div
+      role="status"
+      className="success-in rounded-[1.25rem] border border-white/12 bg-dark-card p-8 text-center shadow-[0_18px_40px_-14px_rgba(0,0,0,0.65)] sm:p-12 w-full"
+    >
+      <div className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full bg-brand-green/20">
+        <svg className="h-8 w-8 text-accent-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+          <path className="pen-check" pathLength={1} strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+      <h3 className="text-2xl font-black sm:text-3xl">
+        תודה{firstName ? `, ${firstName}` : ""}!
+      </h3>
+      <p className="mt-3 text-lg text-white/80">
+        קיבלתי את הפרטים. אחזור אליך לתיאום שיחת אפיון קצרה.
+      </p>
+    </div>
+  );
+}
 
 /* ═══════════════════════ COMPONENT ═══════════════════════ */
 
 export default function ContactForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [goal, setGoal] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<FormStatus>("idle");
-  const [nameError, setNameError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
-
-  const validateName = () => {
-    if (!name.trim()) {
-      setNameError("נא להזין שם מלא");
-      return false;
-    }
-    setNameError("");
-    return true;
-  };
-
-  const validatePhone = () => {
-    const cleaned = phone.replace(/[\s\-()]/g, "");
-    if (!cleaned) {
-      setPhoneError("נא להזין מספר טלפון");
-      return false;
-    }
-    if (!/^0\d{8,9}$/.test(cleaned) && !/^\+?\d{10,13}$/.test(cleaned)) {
-      setPhoneError("מספר טלפון לא תקין");
-      return false;
-    }
-    setPhoneError("");
-    return true;
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const validName = validateName();
-    const validPhone = validatePhone();
-    if (!validName || !validPhone) return;
+    const nextErrors = validate(name, phone, goal);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length > 0) return;
 
     setStatus("submitting");
     try {
@@ -85,7 +84,7 @@ export default function ContactForm() {
         body: JSON.stringify({
           name: name.trim(),
           phone: phone.trim(),
-          message: message.trim(),
+          goal,
         }),
       });
       setStatus(res.ok ? "success" : "error");
@@ -94,279 +93,144 @@ export default function ContactForm() {
     }
   };
 
-  /* ── Success state ── */
-  if (status === "success") {
-    return (
-      <section id="contact" className="relative py-16 md:py-32">
-        <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-8 md:mb-24" />
-        <div className="mx-auto max-w-lg px-5 md:px-8 text-center">
-          <div className="animate-success inline-flex w-20 h-20 rounded-full bg-brand-green/15 items-center justify-center mb-6">
-            <svg
-              className="w-10 h-10 text-accent-green"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4.5 12.75l6 6 9-13.5"
-              />
-            </svg>
-          </div>
-          <h2 className="text-3xl font-black mb-3">
-            תודה{name.trim() ? `, ${name.trim().split(" ")[0]}` : ""}!
+  return (
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="relative overflow-hidden bg-dark-section py-20 md:py-28"
+    >
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 px-5 md:gap-12 md:px-8">
+        <div className="text-center">
+          <h2
+            id="contact-heading"
+            className="text-[clamp(2.1rem,1.2rem+3vw,3.5rem)] leading-[1.05] font-black tracking-[-0.02em] text-balance"
+          >
+            {CONTACT_SECTION.title}
           </h2>
-          <p className="text-text-secondary text-lg">
-            קיבלתי את הפרטים שלך. אחזור אליך תוך 24 שעות.
-          </p>
+          <div className="mx-auto mt-6 max-w-[60ch] space-y-4 text-lg leading-relaxed text-white/80">
+            {CONTACT_SECTION.paragraphs.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
           <a
             href={CONTACT.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-6 text-sm text-whatsapp hover:underline underline-offset-4"
+            className="mt-8 inline-flex items-center gap-2 text-base font-medium text-white/85 underline decoration-white/25 underline-offset-8 transition-colors hover:text-white hover:decoration-accent-green"
           >
-            <MessageCircle className="w-4 h-4" />
-            רוצה תשובה מהירה יותר? שלח וואטסאפ
+            <MessageCircle className="h-5 w-5 text-whatsapp" aria-hidden="true" />
+            או דברו איתי ישירות בוואטסאפ
           </a>
         </div>
-      </section>
-    );
-  }
 
-  /* ── Form state ── */
-  return (
-    <section id="contact" className="relative py-16 md:py-32 bg-dark-section">
-      {/* Section divider */}
-      <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent mb-24 md:mb-32" />
-
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-green/4 blur-[100px]" />
-        <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-brand-blue/2 blur-[80px]" />
-      </div>
-
-      <div className="relative mx-auto max-w-5xl px-5 md:px-8">
-        {/* ── Header ── */}
-        <ScrollReveal>
-          <div className="text-center mb-14">
-            <p className="text-accent-green text-sm font-semibold tracking-wider uppercase mb-3">
-              צור קשר
-            </p>
-            <h2 className="text-3xl md:text-[3rem] font-black">בוא נדבר</h2>
-            <p className="mt-4 text-text-secondary text-lg">
-              השאר פרטים ואחזור אליך — בלי התחייבות
-            </p>
-          </div>
-        </ScrollReveal>
-
-        {/* ── Split layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-12">
-          {/* Form card (right side in RTL) */}
-          <ScrollReveal>
-            <div className="relative bg-dark-card/80 backdrop-blur-xl border border-white/6 rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 lg:p-10">
-              {/* Green gradient line at top */}
-              <div className="absolute top-0 inset-x-8 h-[2px] bg-gradient-to-l from-accent-green via-brand-green to-transparent rounded-full" />
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-2"
-                  >
-                    שם מלא
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(e) => {
-                      setName(e.target.value);
-                      if (nameError) setNameError("");
-                    }}
-                    onBlur={validateName}
-                    placeholder="הכנס את שמך"
-                    className={`form-input ${nameError ? "form-input-error" : ""}`}
-                    autoComplete="name"
-                  />
-                  {nameError && (
-                    <p className="mt-2 text-sm text-red-400">{nameError}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-2"
-                  >
-                    טלפון
-                  </label>
-                  <input
-                    id="phone"
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => {
-                      setPhone(e.target.value);
-                      if (phoneError) setPhoneError("");
-                    }}
-                    onBlur={validatePhone}
-                    placeholder="05X-XXXXXXX"
-                    dir="ltr"
-                    className={`form-input text-left ${
-                      phoneError ? "form-input-error" : ""
-                    }`}
-                    autoComplete="tel"
-                  />
-                  {phoneError && (
-                    <p className="mt-2 text-sm text-red-400">{phoneError}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-xs font-semibold text-text-muted uppercase tracking-wider mb-2"
-                  >
-                    הודעה חופשית{" "}
-                    <span className="normal-case text-text-muted/60">
-                      (לא חובה)
-                    </span>
-                  </label>
-                  <textarea
-                    id="message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="ספר לי קצת על עצמך..."
-                    rows={3}
-                    className="form-input resize-none"
-                  />
-                </div>
-
-                <div className="flex flex-col gap-3 pt-2">
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="cta-btn w-full py-4 text-base disabled:opacity-50 group"
-                  >
-                    {status === "submitting" ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <svg
-                          className="w-5 h-5 animate-spin"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            strokeWidth="4"
-                          />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                          />
-                        </svg>
-                        שולח...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        קבע שיחת היכרות חינם
-                        <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
-                      </span>
-                    )}
-                  </button>
-
-                  {/* WhatsApp alternative */}
-                  <a
-                    href={CONTACT.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cta-btn-outline w-full py-3.5 text-sm flex items-center justify-center gap-2"
-                  >
-                    <MessageCircle className="w-4 h-4 text-whatsapp" />
-                    או שלח הודעה בוואטסאפ
-                  </a>
-                </div>
-
-                {status === "error" && (
-                  <p className="text-sm text-red-400 text-center">
-                    אירעה שגיאה. נסה שוב או צור קשר ישירות בטלפון.
-                  </p>
-                )}
-              </form>
-
-              {/* Privacy note */}
-              <div className="mt-6 flex items-center justify-center gap-2 text-xs text-text-muted/60">
-                <Lock className="w-3 h-3" />
-                <span>הפרטים שלך מאובטחים ולא יועברו לצד שלישי</span>
+        {status === "success" ? (
+          <SuccessPanel firstName={name.trim().split(" ")[0] ?? ""} />
+        ) : (
+          <form
+            noValidate
+            onSubmit={handleSubmit}
+            aria-label="השארת פרטים לשיחת אפיון"
+            className="rounded-[1.25rem] border border-white/12 bg-dark-card p-6 shadow-[0_18px_40px_-14px_rgba(0,0,0,0.65)] sm:p-8 w-full lg:p-10"
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-white/85">
+                  שם
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? "contact-name-error" : undefined}
+                  className={`form-input ${errors.name ? "form-input-error" : ""}`}
+                />
+                <FieldError id="contact-name-error" message={errors.name} />
+              </div>
+              <div>
+                <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-white/85">
+                  טלפון
+                </label>
+                <input
+                  id="contact-phone"
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  dir="ltr"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  aria-invalid={Boolean(errors.phone)}
+                  aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+                  className={`form-input text-right ${errors.phone ? "form-input-error" : ""}`}
+                />
+                <FieldError id="contact-phone-error" message={errors.phone} />
               </div>
             </div>
-          </ScrollReveal>
 
-          {/* Info sidebar (left side in RTL) */}
-          <ScrollReveal delay={200} className="lg:pt-4">
-            <div className="flex flex-col gap-6">
-              {/* Contact points */}
-              <div className="space-y-3">
-                {CONTACT_POINTS.map((cp) => {
-                  const Icon = cp.icon;
-                  return (
-                    <a
-                      key={cp.label}
-                      href={cp.href}
-                      target={cp.href.startsWith("http") ? "_blank" : undefined}
-                      rel={cp.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="flex items-center gap-4 bg-dark-card border border-white/4 hover:border-white/8 rounded-xl p-4 transition-colors duration-300"
-                    >
-                      <div className="w-10 h-10 rounded-lg bg-brand-green/12 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-accent-green" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-text-muted">{cp.label}</p>
-                        <p className="text-sm font-semibold text-white">
-                          {cp.value}
-                        </p>
-                      </div>
-                    </a>
-                  );
-                })}
+            <div className="mt-6">
+              <label htmlFor="contact-goal" className="mb-2 block text-base font-bold text-white">
+                {CONTACT_SECTION.goalQuestion}{" "}
+                <span className="text-sm font-medium text-white/65">(חובה)</span>
+              </label>
+              <div className="relative">
+                <select
+                  id="contact-goal"
+                  name="goal"
+                  required
+                  value={goal}
+                  onChange={(e) => setGoal(e.target.value)}
+                  aria-invalid={Boolean(errors.goal)}
+                  aria-describedby={errors.goal ? "contact-goal-error" : undefined}
+                  className={`form-input form-select ${goal ? "" : "text-white/55"} ${errors.goal ? "form-input-error" : ""}`}
+                >
+                  <option value="" disabled>
+                    {CONTACT_SECTION.goalPlaceholder}
+                  </option>
+                  {GOAL_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  className="pointer-events-none absolute end-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/60"
+                  aria-hidden="true"
+                />
               </div>
-
-              {/* Trust points */}
-              <div className="bg-dark-card border border-white/4 rounded-xl p-5 space-y-4">
-                {TRUST_POINTS.map((tp) => {
-                  const Icon = tp.icon;
-                  return (
-                    <div key={tp.text} className="flex items-center gap-3">
-                      <Icon className="w-4 h-4 text-accent-green flex-shrink-0" />
-                      <span className="text-sm text-text-secondary">
-                        {tp.text}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Mini testimonial */}
-              <div className="bg-dark-card border border-white/4 rounded-xl p-5">
-                <blockquote className="text-sm text-text-secondary leading-relaxed italic">
-                  &ldquo;ירין שינה לי את כל הגישה למסחר. הליווי האישי עושה את כל
-                  ההבדל.&rdquo;
-                </blockquote>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="w-7 h-7 rounded-lg bg-brand-green/12 flex items-center justify-center">
-                    <span className="text-xs font-bold text-accent-green">ד</span>
-                  </div>
-                  <span className="text-xs text-text-muted">ד.כ, תלמיד</span>
-                </div>
-              </div>
+              <FieldError id="contact-goal-error" message={errors.goal} />
             </div>
-          </ScrollReveal>
-        </div>
+
+            {status === "error" && (
+              <p role="alert" className="field-error-in mt-6 rounded-xl border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                משהו השתבש בשליחה. נסו שוב, או{" "}
+                <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="font-bold underline underline-offset-4">
+                  שלחו לי הודעה בוואטסאפ
+                </a>
+                .
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={status === "submitting"}
+              className="cta-btn mt-8 w-full py-4 text-lg disabled:cursor-wait disabled:opacity-70"
+            >
+              {status === "submitting" ? "שולח..." : "קבעו שיחת אפיון"}
+            </button>
+            <p className="mt-4 text-center text-xs leading-relaxed text-text-secondary">
+              הפרטים ישמשו רק כדי לחזור אליכם בנוגע לליווי.{" "}
+              <Link href="/privacy" className="whitespace-nowrap underline underline-offset-4 hover:text-white">
+                מדיניות הפרטיות
+              </Link>
+            </p>
+          </form>
+        )}
       </div>
     </section>
   );
