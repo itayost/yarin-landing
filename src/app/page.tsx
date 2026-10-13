@@ -1,8 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import WhyMentoring from "@/components/WhyMentoring";
-import Services from "@/components/Services";
 import About from "@/components/About";
+import TradeGallery from "@/components/TradeGallery";
+import Approach from "@/components/Approach";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
@@ -17,9 +17,9 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <WhyMentoring />
-        <Services />
         <About />
+        <TradeGallery />
+        <Approach />
         <Testimonials />
         <FAQ />
         <ContactForm />

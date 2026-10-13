@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import { CONTACT } from "@/lib/constants";
+import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -10,10 +11,11 @@ const heebo = Heebo({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+
 export const metadata: Metadata = {
   title: "ירין מנוח | ליווי אישי במסחר בשוק ההון",
   description:
-    "ליווי 1-על-1 במניות, אופציות, פיוצ'רס וקריפטו. מותאם אישית לרמה שלך. 5+ שנות ניסיון, רישיון ניהול תיקי השקעות, B.Sc. הנדסת תוכנה.",
+    "ליווי 1-על-1 במסחר והשקעות: חוזים עתידיים, מניות וקריפטו. 6+ שנות ניסיון, B.Sc. הנדסת תוכנה, בהתמחות לרישיון ניהול תיקי השקעות.",
   keywords:
     "מסחר במניות, ליווי אישי, שוק ההון, אופציות, פיוצ'רס, קריפטו, ירין מנוח, מנטור מסחר",
   authors: [{ name: "ירין מנוח" }],
@@ -57,12 +59,7 @@ const jsonLd = {
       "@type": "EducationalOccupationalCredential",
       credentialCategory: "degree",
       name: "B.Sc. Software Engineering",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "license",
-      name: "רישיון ניהול תיקי השקעות",
-    },
+    }
   ],
 };
 
@@ -79,7 +76,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google Analytics 4 — uncomment and add your ID */}
+        {/* Google Analytics 4 — uncomment and add your ID. Enabling this (or the
+            Facebook Pixel below) requires updating the "עוגיות וכלי מדידה" section
+            of /privacy in the same change. */}
         {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" />
         <script dangerouslySetInnerHTML={{ __html: `
           window.dataLayer = window.dataLayer || [];
@@ -103,8 +102,10 @@ export default function RootLayout({
         `}} /> */}
       </head>
       <body className="font-sans antialiased">
+        <MotionProvider>
         <div className="noise-overlay" aria-hidden="true" />
         {children}
+        </MotionProvider>
       </body>
     </html>
   );

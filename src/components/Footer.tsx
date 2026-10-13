@@ -1,18 +1,41 @@
 "use client";
 
-import { Instagram, Twitter, Phone, Mail, ArrowUp } from "lucide-react";
+import { Instagram, Phone, Mail, ArrowUp } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { CONTACT } from "@/lib/constants";
+import { ABOUT, DISCLAIMERS, IMAGES } from "@/lib/content";
 
 /* ═══════════════════════ NAV LINKS ═══════════════════════ */
 
 const NAV_LINKS = [
-  { label: "למה ליווי?", href: "#why" },
-  { label: "חבילות", href: "#services" },
-  { label: "עליי", href: "#about" },
+  { label: "מי אני", href: "#about" },
+  { label: "מול המסכים", href: "#screens" },
+  { label: "הגישה שלי", href: "#approach" },
   { label: "ביקורות", href: "#testimonials" },
   { label: "שאלות נפוצות", href: "#faq" },
   { label: "צור קשר", href: "#contact" },
 ];
+
+/* X mark drawn in the lucide stroke language (lucide's Twitter bird is the
+ * retired brand). */
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 4h4.5L20 20h-4.5z" />
+      <path d="M4 20l6.6-6.9M20 4l-6.6 6.9" />
+    </svg>
+  );
+}
 
 const SOCIALS = [
   {
@@ -23,9 +46,9 @@ const SOCIALS = [
     hoverText: "hover:text-[#E1306C]",
   },
   {
-    icon: Twitter,
+    icon: XIcon,
     href: CONTACT.twitter,
-    label: "X (Twitter)",
+    label: "X",
     hoverBg: "hover:bg-white/10",
     hoverText: "hover:text-white",
   },
@@ -40,8 +63,8 @@ const SOCIALS = [
     icon: Mail,
     href: `mailto:${CONTACT.email}`,
     label: "אימייל",
-    hoverBg: "hover:bg-brand-blue/20",
-    hoverText: "hover:text-accent-blue",
+    hoverBg: "hover:bg-white/10",
+    hoverText: "hover:text-white",
   },
 ];
 
@@ -67,13 +90,14 @@ export default function Footer() {
                 e.preventDefault();
                 scrollToTop();
               }}
-              className="text-xl font-bold tracking-tight"
+              className="flex items-center gap-2 text-xl font-bold tracking-tight"
             >
-              <span className="text-accent-green">ירין</span>{" "}
+              <Image src={IMAGES.logoMark} alt="" width={32} height={34} className="h-8 w-auto" />
+              <span className="text-accent-green">ירין</span>
               <span className="text-white">מנוח</span>
             </a>
-            <p className="text-sm text-text-muted max-w-[240px]">
-              מנטור מסחר בשוק ההון — ליווי אישי שמביא תוצאות
+            <p className="text-sm text-text-secondary max-w-[240px]">
+              {ABOUT.role}. ליווי אישי 1 על 1 מול המסכים.
             </p>
           </div>
 
@@ -83,7 +107,7 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-text-muted hover:text-white transition-colors duration-300"
+                className="text-sm text-text-secondary hover:text-white transition-colors duration-300"
               >
                 {link.label}
               </a>
@@ -93,13 +117,18 @@ export default function Footer() {
           {/* Back to top */}
           <button
             onClick={scrollToTop}
-            className="hidden md:flex items-center gap-2 text-sm text-text-muted hover:text-accent-green transition-colors duration-300 flex-shrink-0"
+            className="hidden md:flex items-center gap-2 text-sm text-text-secondary hover:text-accent-green transition-colors duration-300 flex-shrink-0"
             aria-label="חזרה למעלה"
           >
             <span>חזרה למעלה</span>
             <ArrowUp className="w-4 h-4" />
           </button>
         </div>
+
+        {/* ── Disclaimer ── */}
+        <p className="mb-8 max-w-3xl text-sm leading-relaxed text-text-secondary">
+          {DISCLAIMERS.site}
+        </p>
 
         {/* ── Divider ── */}
         <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent" />
@@ -116,7 +145,7 @@ export default function Footer() {
                   href={s.href}
                   target={s.href.startsWith("http") ? "_blank" : undefined}
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className={`w-10 h-10 rounded-full bg-white/4 ${s.hoverBg} flex items-center justify-center text-text-muted ${s.hoverText} transition-all duration-300`}
+                  className={`w-10 h-10 rounded-full bg-white/4 ${s.hoverBg} flex items-center justify-center text-text-secondary ${s.hoverText} transition-all duration-300`}
                   aria-label={s.label}
                 >
                   <Icon className="w-4 h-4" />
@@ -126,15 +155,12 @@ export default function Footer() {
           </div>
 
           {/* Copyright + legal */}
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-text-muted/60">
+          <div className="flex flex-col items-center gap-2 text-xs text-text-secondary sm:flex-row sm:gap-4">
             <p>&copy; {year} ירין מנוח. כל הזכויות שמורות.</p>
-            <span className="hidden sm:block w-1 h-1 rounded-full bg-text-muted/30" />
-            <a
-              href="#"
-              className="hover:text-text-muted transition-colors"
-            >
+            <span className="hidden h-1 w-1 rounded-full bg-white/25 sm:block" aria-hidden="true" />
+            <Link href="/privacy" className="underline-offset-4 transition-colors hover:text-white hover:underline">
               מדיניות פרטיות
-            </a>
+            </Link>
           </div>
         </div>
       </div>
