@@ -304,6 +304,23 @@ body {
   from { color: rgb(255 255 255 / 0.36); }
 }
 
+/* ═══════════════════════ USERWAY WIDGET ═══════════════════════
+   Lines the accessibility button up with the WhatsApp button: same centre
+   height. WhatsApp sits at bottom-6 (1.5rem) and is 3.5rem tall; UserWay's
+   default button is 44px, so it needs half the size difference added.
+   Its script sets the position inline, hence !important. */
+
+:root {
+  --fab-bottom: 1.5rem;
+  --fab-size: 3.5rem;
+  --userway-icon-size: 44px;
+}
+
+.uwy .userway_buttons_wrapper {
+  top: auto !important;
+  bottom: calc(var(--fab-bottom) + (var(--fab-size) - var(--userway-icon-size)) / 2) !important;
+}
+
 /* ═══════════════════════ HERO ═══════════════════════ */
 
 .hero-scrim {

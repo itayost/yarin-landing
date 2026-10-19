@@ -41,6 +41,15 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
+/* Visual cue only: the fields carry `required`, which screen readers announce */
+function RequiredMark() {
+  return (
+    <span className="ms-0.5 text-red-400" aria-hidden="true">
+      *
+    </span>
+  );
+}
+
 /* ═══════════════════════ SUCCESS ═══════════════════════ */
 
 function SuccessPanel({ firstName }: { firstName: string }) {
@@ -197,6 +206,7 @@ export default function ContactForm() {
               <div className="min-w-0">
                 <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-white/85">
                   שם
+                  <RequiredMark />
                 </label>
                 <input
                   ref={nameRef}
@@ -217,6 +227,7 @@ export default function ContactForm() {
               <div className="min-w-0">
                 <label htmlFor="contact-phone" className="mb-2 block text-sm font-medium text-white/85">
                   טלפון
+                  <RequiredMark />
                 </label>
                 <input
                   ref={phoneRef}
@@ -240,8 +251,8 @@ export default function ContactForm() {
 
             <div className="mt-6">
               <label htmlFor="contact-goal" className="mb-2 block text-base font-bold text-white">
-                {CONTACT_SECTION.goalQuestion}{" "}
-                <span className="text-sm font-medium text-white/65">(חובה)</span>
+                {CONTACT_SECTION.goalQuestion}
+                <RequiredMark />
               </label>
               <div className="relative">
                 <select
