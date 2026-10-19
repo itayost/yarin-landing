@@ -28,7 +28,7 @@ export default function TradeGallery() {
     <section
       id="screens"
       aria-labelledby="screens-heading"
-      className="relative overflow-hidden bg-dark pt-20 pb-12 md:pt-28 md:pb-14"
+      className="relative overflow-clip bg-dark pt-20 pb-12 md:pt-28 md:pb-14"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="flex flex-col items-center gap-5 text-center">

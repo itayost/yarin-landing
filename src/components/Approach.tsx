@@ -1,119 +1,132 @@
-import { Check, X } from "lucide-react";
+import type { CSSProperties } from "react";
+import { Check } from "lucide-react";
 import { APPROACH, APPROACH_DISPLAY, FIT } from "@/lib/content";
 
-/* ═══════════════════════ PEN STRIKE ═══════════════════════
- * Yarin's pen crossing out what the category sells; draws on scroll.
+/* ═══════════════════════ CREED TICK ═══════════════════════
+ * Checklist tick that draws as the ledger scrolls in (see globals.css,
+ * "APPROACH: CREED CHECKLIST"); --i sets its place in the sequence.
  */
 
-function PenStrike() {
+function CreedTick() {
   return (
-    <svg
-      className="pointer-events-none absolute inset-x-[-4%] top-[52%] h-[0.32em] w-[108%] -translate-y-1/2"
-      viewBox="0 0 300 24"
-      preserveAspectRatio="none"
-      fill="none"
+    <span
+      className="creed-tick grid h-9 w-9 shrink-0 place-items-center rounded-full"
       aria-hidden="true"
     >
-      <path
-        d="M4 14 C 70 9, 160 16, 296 8"
-        stroke="var(--color-marker)"
-        strokeWidth="5"
-        strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
-        pathLength={1}
-        className="pen-on-view"
-      />
-    </svg>
+      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
+        <path
+          d="M4 12l5 5L20 6"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          pathLength={1}
+          className="creed-check"
+        />
+      </svg>
+    </span>
   );
 }
 
-/* ═══════════════════════ APPROACH ═══════════════════════ */
+function CheckBullet() {
+  return (
+    <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-green/30">
+      <Check className="h-4 w-4 text-accent-green" strokeWidth={2.5} aria-hidden="true" />
+    </span>
+  );
+}
+
+/* ═══════════════════════ APPROACH ═══════════════════════
+ * Two paths on a central spine: each belief (a lifted graphite note, ticking
+ * off in reading order) stands opposite the habit it rules out (flat, struck).
+ * On phones the ruled-out habit sits under its belief so pairs stay together.
+ */
 
 export default function Approach() {
-  const { lead, pillars, punch, contrast } = APPROACH_DISPLAY;
+  const { lead, mineLabel, notLabel, pairs } = APPROACH_DISPLAY;
 
   return (
     <section
       id="approach"
       aria-labelledby="approach-heading"
-      className="relative overflow-hidden bg-dark pt-16 pb-20 md:pt-20 md:pb-28"
+      className="relative overflow-clip bg-dark py-20 md:py-28"
     >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
-        {/* ── Belief: four pillars ── */}
         <h2
           id="approach-heading"
-          className="text-center text-[clamp(1.5rem,1.1rem+1.4vw,2.25rem)] font-bold text-white/55"
+          className="text-center text-[clamp(2.4rem,1.3rem+3.4vw,4rem)] leading-[1.05] font-black tracking-[-0.02em]"
         >
           {lead}
         </h2>
-        <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-8 text-center lg:grid-cols-4">
-          {pillars.map((pillar) => (
-            <li
-              key={pillar}
-              className="text-[clamp(1.6rem,1rem+2.2vw,3rem)] leading-[1.05] font-black tracking-[-0.02em] text-balance"
-            >
-              {pillar}
-            </li>
-          ))}
-        </ul>
 
-        <p className="isolate mt-12 text-center text-[clamp(1.6rem,1.1rem+1.8vw,2.6rem)] leading-tight font-black md:mt-16">
-          {punch.before}
-          <span className="relative inline-block">
-            <s className="text-white/45 decoration-transparent">{punch.struck}</s>
-            <PenStrike />
-          </span>
-          {punch.after}
-        </p>
+        {/* ── Two paths ── */}
+        <div className="relative mt-12 md:mt-16">
+          <div
+            className="absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-white/12 md:block"
+            aria-hidden="true"
+          />
 
-        {/* ── Contrast pair ── */}
-        <div className="mt-14 grid gap-4 md:mt-20 md:grid-cols-2 md:gap-6">
-          <div className="flex items-center gap-4 rounded-[1.25rem] border border-white/10 px-6 py-7 sm:px-8">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/5">
-              <X className="h-5 w-5 text-white/55" aria-hidden="true" />
-            </span>
-            <p className="isolate text-2xl font-bold text-white/55 md:text-3xl">
-              <span className="sr-only">ללא </span>
-              <span className="relative inline-block">
-                <s className="decoration-transparent">{contrast.rejected}</s>
-                <PenStrike />
-              </span>
-            </p>
-          </div>
-          <div className="flex items-center gap-4 rounded-[1.25rem] border border-white/12 bg-dark-card px-6 py-7 shadow-[0_18px_40px_-14px_rgba(0,0,0,0.65)] sm:px-8">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-green/30">
-              <Check className="h-5 w-5 text-accent-green" strokeWidth={2.5} aria-hidden="true" />
-            </span>
-            <p className="text-2xl leading-snug font-bold text-white md:text-3xl">
-              {contrast.chosen}
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="rounded-[1.25rem] border border-white/12 bg-dark-card px-6 py-7 shadow-[0_24px_50px_-18px_rgba(0,0,0,0.75)] sm:px-9 md:me-10 md:rotate-[-1deg]">
+              <h3 className="text-lg font-bold text-accent-green">{mineLabel}</h3>
+              <ol className="creed mt-3">
+                {pairs.map(({ mine, not }, i) => (
+                  <li
+                    key={mine}
+                    style={{ "--i": i } as CSSProperties}
+                    className="flex items-center gap-4 border-b border-white/10 py-4 last:border-b-0 md:h-28"
+                  >
+                    <CreedTick />
+                    <span className="flex flex-col gap-1">
+                      <span className="creed-word text-[clamp(1.35rem,1.1rem+0.9vw,1.9rem)] leading-tight font-black">
+                        {mine}
+                      </span>
+                      <s className="text-base text-white/50 decoration-white/30 md:hidden">
+                        <span className="sr-only">{notLabel}: </span>
+                        {not}
+                      </s>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="hidden px-6 py-7 sm:px-9 md:ms-10 md:block">
+              <h3 className="text-lg font-bold text-white/50">{notLabel}</h3>
+              <ul className="mt-3">
+                {pairs.map(({ not }) => (
+                  <li
+                    key={not}
+                    className="flex h-28 items-center border-b border-white/6 py-4 last:border-b-0"
+                  >
+                    <s className="text-[clamp(1.2rem,1rem+0.7vw,1.6rem)] leading-tight font-bold text-white/45 decoration-white/30 decoration-2">
+                      {not}
+                    </s>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
-        <p className="mx-auto mt-12 max-w-[60ch] text-center text-xl leading-[1.75] text-white/80 md:mt-16">
+        <p className="mx-auto mt-14 max-w-[60ch] text-center text-xl leading-[1.75] text-white/80 md:mt-20">
           {APPROACH.promise}
         </p>
-      </div>
 
-      {/* ── Fit ── */}
-      <div className="mx-auto mt-20 max-w-5xl px-5 md:mt-24 md:px-8">
-        <div className="rounded-2xl border border-white/12 bg-dark-card px-6 py-8 shadow-[0_24px_50px_-20px_rgba(0,0,0,0.7)] sm:px-10 md:py-10">
-          <h3 className="text-center text-2xl font-black md:text-3xl">{FIT.title}</h3>
-          <ul className="mx-auto mt-6 grid w-fit gap-x-14 gap-y-4 sm:grid-cols-[auto_auto]">
+        {/* ── Fit ── */}
+        <div className="mx-auto mt-14 max-w-4xl border-t border-white/10 pt-10 text-center">
+          <h3 className="text-2xl font-black md:text-3xl">{FIT.title}</h3>
+          <ul className="mx-auto mt-6 grid w-fit gap-x-14 gap-y-4 text-start sm:grid-cols-[auto_auto]">
             {FIT.items.map((item) => (
               <li key={item} className="flex items-start gap-3 text-lg text-white/85">
-                <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-green/30">
-                  <Check className="h-4 w-4 text-accent-green" strokeWidth={2.5} aria-hidden="true" />
-                </span>
+                <CheckBullet />
                 {item}
               </li>
             ))}
           </ul>
-          <div className="mt-9 flex justify-center">
-            <a href="#contact" className="cta-btn group px-8 py-3.5 text-base">
-              לשיחת אפיון קצרה
-            </a>
-          </div>
+          <a href="#contact" className="cta-btn group mt-9 px-8 py-3.5 text-base">
+            לשיחת אפיון קצרה
+          </a>
         </div>
       </div>
     </section>

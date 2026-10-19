@@ -64,7 +64,7 @@ export const HOOK_PEN_WORD = "סוחר";
  * emphasised. Joining a beat's segments reproduces the PDF sentence. */
 export type AboutBeat = {
   /* Big word beside the paragraph, with one or more lines under it */
-  figure: { value: string; lines: string[] };
+  figure: { value: string; lines: string[]; isCountUp?: boolean };
   title: string;
   segments: { text: string; isStrong?: boolean }[];
 };
@@ -86,16 +86,16 @@ export const ABOUT_BEATS: AboutBeat[] = [
       { text: "עובד בבית ההשקעות של " },
       { text: "הפניקס", isStrong: true },
       {
-        text: ", בתהליכי התמחות לקבלת רישיון ניהול תיקי השקעות ומרצה באחת המכללות המובילות בארץ.",
+        text: ", בתהליכי התמחות לקבלת רישיון ניהול תיקי השקעות ומרצה להשקעות באחת המכללות המובילות בארץ.",
       },
     ],
   },
   {
-    figure: { value: "100+", lines: ["תלמידים"] },
+    figure: { value: "200+", lines: ["תלמידים"], isCountUp: true },
     title: "התלמידים",
     segments: [
       { text: "ליוויתי " },
-      { text: "מעל 100 תלמידים", isStrong: true },
+      { text: "מעל 200 תלמידים", isStrong: true },
       {
         text: " לדריסת רגל בעולם ההשקעות, פתיחת תיקים ומעבר למסחר שיטתי ורווחי.",
       },
@@ -114,15 +114,19 @@ export const APPROACH = {
     "אני מלווה אותך אישית ומעניק לך גב מקצועי מלא, צעד אחר צעד, עד שאתה שולט בשוק, פועל בביטחון ויודע לייצר ולהגדיל רווחים בעצמך.",
 };
 
-/* Display split of APPROACH for the section's typography; same words. */
+/* Display split of APPROACH for the "two paths" ledger: each belief stands
+ * opposite the habit it rules out. Every phrase is the owner's own copy;
+ * only the two column labels are new wording. */
 export const APPROACH_DISPLAY = {
   lead: "אני מאמין",
-  pillars: ["עבודה מדויקת", "הכנה מוקדמת", "משמעת", "ניהול סיכונים"],
-  punch: { before: "בלי קיצורי דרך ו", struck: "הבטחות שווא", after: "." },
-  contrast: {
-    rejected: "קורסים מוקלטים",
-    chosen: "ליווי אישי בלבד (1 על 1) מול המסכים",
-  },
+  mineLabel: "ככה אני עובד",
+  notLabel: "ככה לא",
+  pairs: [
+    { mine: "ליווי אישי בלבד (1 על 1) מול המסכים", not: "קורסים מוקלטים" },
+    { mine: "הכנה מוקדמת", not: "קיצורי דרך" },
+    { mine: "ניהול סיכונים", not: "הבטחות שווא" },
+    { mine: "עבודה מדויקת ומשמעת", not: "מכללות המוניות ומסחור" },
+  ],
 };
 
 /* ═══════════════════════ FIT ═══════════════════════ */
