@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
+import Script from "next/script";
 import { CONTACT } from "@/lib/constants";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
@@ -106,6 +107,14 @@ export default function RootLayout({
         <div className="noise-overlay" aria-hidden="true" />
         {children}
         </MotionProvider>
+        {/* UserWay accessibility widget; loads after the page is idle */}
+        <Script
+          id="userway-widget"
+          src="https://cdn.userway.org/widget.js"
+          data-account="7ek953Xjr7"
+          data-language="he"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

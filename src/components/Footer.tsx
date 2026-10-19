@@ -1,6 +1,7 @@
 "use client";
 
 import { Instagram, Phone, Mail, ArrowUp, ArrowUpLeft } from "lucide-react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CONTACT } from "@/lib/constants";
@@ -10,7 +11,6 @@ import { ABOUT, AFFILIATE_LINKS, AFFILIATE_NOTE, DISCLAIMERS, IMAGES } from "@/l
 
 const NAV_LINKS = [
   { label: "מי אני", href: "#about" },
-  { label: "מול המסכים", href: "#screens" },
   { label: "הגישה שלי", href: "#approach" },
   { label: "ביקורות", href: "#testimonials" },
   { label: "שאלות נפוצות", href: "#faq" },
@@ -63,6 +63,8 @@ const SOCIALS = [
     icon: Mail,
     href: `mailto:${CONTACT.email}`,
     label: "אימייל",
+    /* mailto does nothing without a mail app, so the click also copies it */
+    copyText: CONTACT.email,
     hoverBg: "hover:bg-white/10",
     hoverText: "hover:text-white",
   },
@@ -70,8 +72,24 @@ const SOCIALS = [
 
 /* ═══════════════════════ COMPONENT ═══════════════════════ */
 
+const COPIED_NOTICE_MS = 2_500;
+
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), COPIED_NOTICE_MS);
+    return () => clearTimeout(timer);
+  }, [copied]);
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard?.writeText(text).then(
+      () => setCopied(true),
+      () => setCopied(false)
+    );
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -79,89 +97,75 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-dark-deep border-t border-white/4">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 pt-14 pb-8">
-        {/* ── Top: Brand + Nav + Back to top ── */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-10 mb-10">
-          {/* Brand */}
-          <div className="flex flex-col gap-3">
+      {/* One centred column: brand, nav, partners, disclaimer, then socials and legal */}
+      <div className="mx-auto flex max-w-7xl flex-col items-center px-5 pt-14 pb-8 text-center md:px-8">
+        {/* ── Brand ── */}
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToTop();
+          }}
+          className="flex items-center gap-2 text-xl font-bold tracking-tight"
+        >
+          <Image src={IMAGES.logoMark} alt="" width={32} height={34} className="h-8 w-auto" />
+          <span className="text-accent-green">ירין</span>
+          <span className="text-white">מנוח</span>
+        </a>
+        <p className="mt-3 text-sm text-text-secondary text-balance">
+          {ABOUT.role}. ליווי אישי 1 על 1 מול המסכים.
+        </p>
+
+        {/* ── Section nav links ── */}
+        <nav className="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-3 md:gap-x-7">
+          {NAV_LINKS.map((link) => (
             <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToTop();
-              }}
-              className="flex items-center gap-2 text-xl font-bold tracking-tight"
+              key={link.href}
+              href={link.href}
+              className="text-sm text-text-secondary hover:text-white transition-colors duration-300"
             >
-              <Image src={IMAGES.logoMark} alt="" width={32} height={34} className="h-8 w-auto" />
-              <span className="text-accent-green">ירין</span>
-              <span className="text-white">מנוח</span>
+              {link.label}
             </a>
-            <p className="text-sm text-text-secondary max-w-[240px]">
-              {ABOUT.role}. ליווי אישי 1 על 1 מול המסכים.
-            </p>
+          ))}
+        </nav>
+
+        {/* ── Partner platforms (affiliate links) ── */}
+        <div className="mt-10 flex flex-col items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
+            <span className="text-sm text-text-secondary">{AFFILIATE_NOTE.title}</span>
+            <ul className="flex flex-wrap items-center justify-center gap-2">
+              {AFFILIATE_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="sponsored noopener noreferrer"
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/4 px-3.5 py-1.5 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/15 hover:bg-white/10 hover:text-white"
+                  >
+                    <bdi dir="ltr">{link.label}</bdi>
+                    <ArrowUpLeft
+                      className="h-3.5 w-3.5 text-white/45 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                      aria-hidden="true"
+                    />
+                    <span className="sr-only">(נפתח בחלון חדש)</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Section nav links */}
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-3 md:gap-x-6">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-text-secondary hover:text-white transition-colors duration-300"
-              >
-                {link.label}
-              </a>
-            ))}
-          </nav>
-
-          {/* Back to top */}
-          <button
-            onClick={scrollToTop}
-            className="hidden md:flex items-center gap-2 text-sm text-text-secondary hover:text-accent-green transition-colors duration-300 flex-shrink-0"
-            aria-label="חזרה למעלה"
-          >
-            <span>חזרה למעלה</span>
-            <ArrowUp className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* ── Partner platforms (affiliate links, disclosed beside them) ── */}
-        <div className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-3">
-          <span className="text-sm text-text-secondary">{AFFILIATE_NOTE.title}</span>
-          <ul className="flex flex-wrap items-center gap-2">
-            {AFFILIATE_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/4 px-3.5 py-1.5 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/15 hover:bg-white/10 hover:text-white"
-                >
-                  <bdi dir="ltr">{link.label}</bdi>
-                  <ArrowUpLeft
-                    className="h-3.5 w-3.5 text-white/45 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
-                    aria-hidden="true"
-                  />
-                  <span className="sr-only">(נפתח בחלון חדש)</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-          <span className="text-xs text-white/50">{AFFILIATE_NOTE.disclosure}</span>
         </div>
 
         {/* ── Disclaimer ── */}
-        <p className="mb-8 max-w-3xl text-sm leading-relaxed text-text-secondary">
+        <p className="mt-8 max-w-3xl text-sm leading-relaxed text-text-secondary text-balance">
           {DISCLAIMERS.site}
         </p>
 
         {/* ── Divider ── */}
-        <div className="h-px bg-gradient-to-l from-transparent via-white/6 to-transparent" />
+        <div className="mt-8 h-px w-full bg-gradient-to-l from-transparent via-white/6 to-transparent" />
 
-        {/* ── Bottom: Social + Copyright ── */}
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          {/* Social icons */}
-          <div className="flex items-center gap-2">
+        {/* ── Bottom: Social + Copyright + Back to top ── */}
+        <div className="mt-8 flex flex-col items-center gap-5">
+          <div className="relative flex items-center gap-2">
             {SOCIALS.map((s) => {
               const Icon = s.icon;
               return (
@@ -172,14 +176,24 @@ export default function Footer() {
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={`w-10 h-10 rounded-full bg-white/4 ${s.hoverBg} flex items-center justify-center text-text-secondary ${s.hoverText} transition-all duration-300`}
                   aria-label={s.label}
+                  onClick={"copyText" in s && s.copyText ? () => copyToClipboard(s.copyText) : undefined}
                 >
                   <Icon className="w-4 h-4" />
                 </a>
               );
             })}
+            <p
+              role="status"
+              className={`pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-dark-card px-3 py-1 text-xs text-white/85 transition-opacity duration-200 ${copied ? "opacity-100" : "opacity-0"}`}
+            >
+              {copied ? (
+                <>
+                  הכתובת הועתקה: <bdi dir="ltr">{CONTACT.email}</bdi>
+                </>
+              ) : null}
+            </p>
           </div>
 
-          {/* Copyright + legal */}
           <div className="flex flex-col items-center gap-2 text-xs text-text-secondary sm:flex-row sm:gap-4">
             <p>&copy; {year} ירין מנוח. כל הזכויות שמורות.</p>
             <span className="hidden h-1 w-1 rounded-full bg-white/25 sm:block" aria-hidden="true" />
@@ -187,6 +201,14 @@ export default function Footer() {
               מדיניות פרטיות
             </Link>
           </div>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-sm text-text-secondary hover:text-accent-green transition-colors duration-300"
+          >
+            <span>חזרה למעלה</span>
+            <ArrowUp className="w-4 h-4" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </footer>

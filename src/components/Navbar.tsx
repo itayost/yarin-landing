@@ -11,7 +11,6 @@ import { IMAGES } from "@/lib/content";
 
 const NAV_LINKS = [
   { label: "מי אני", href: "#about" },
-  { label: "מול המסכים", href: "#screens" },
   { label: "הגישה שלי", href: "#approach" },
   { label: "ביקורות", href: "#testimonials" },
   { label: "שאלות נפוצות", href: "#faq" },

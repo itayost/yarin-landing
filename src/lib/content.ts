@@ -243,6 +243,11 @@ export const TESTIMONIALS: Testimonial[] = [
     context: "תלמיד · הודעה בוואטסאפ",
     quote: "שעור אליפות ירין.",
   },
+  {
+    source: "whatsapp",
+    context: "תלמיד · הודעה בוואטסאפ",
+    quote: "אני לא יודע מה מחכה לי ב-2027. שינית לי את החיים ואת ההסתכלות.",
+  },
 ];
 
 /* ═══════════════════════ LINKS ═══════════════════════ */
@@ -252,8 +257,7 @@ export const AFFILIATE_LINKS = [
   { label: "TradingView", href: "https://www.tradingview.com/?aff_id=169916" },
 ];
 
-/* Footer row around AFFILIATE_LINKS; the disclosure must stay beside them */
+/* Footer row label for AFFILIATE_LINKS */
 export const AFFILIATE_NOTE = {
   title: "פלטפורמות מומלצות",
-  disclosure: "קישורי שותפים: ייתכן שאקבל עמלה על הצטרפות דרכם.",
 };

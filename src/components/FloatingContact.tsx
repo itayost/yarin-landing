@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Phone, X } from "lucide-react";
+import { Phone, X } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
 import { CONTACT } from "@/lib/constants";
 
 export default function FloatingContact() {
@@ -54,7 +55,7 @@ export default function FloatingContact() {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <MessageCircle className="w-6 h-6 text-white" />
+                  <WhatsAppIcon className="w-6 h-6 text-white" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -75,7 +76,7 @@ export default function FloatingContact() {
                   className="w-12 h-12 rounded-full bg-whatsapp flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
                   aria-label="WhatsApp"
                 >
-                  <MessageCircle className="w-5 h-5 text-white" />
+                  <WhatsAppIcon className="w-5 h-5 text-white" />
                 </motion.a>
                 <motion.a
                   href={CONTACT.phoneTel}
