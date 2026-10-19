@@ -6,6 +6,10 @@ import { GOAL_OPTIONS } from "./content";
  */
 
 export const NAME_MAX_LENGTH = 80;
+/* Hidden bot trap. Deliberately meaningless: browser autofill fills fields it
+ * recognises (a field named "company" got the visitor's employer), which
+ * made real leads look like bots and dropped them silently. */
+export const HONEYPOT_FIELD = "hp_check";
 export const PHONE_MAX_LENGTH = 20;
 
 const PHONE_LOCAL = /^0\d{8,9}$/;

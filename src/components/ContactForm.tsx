@@ -8,6 +8,7 @@ import { CONTACT } from "@/lib/constants";
 import { CONTACT_SECTION, GOAL_OPTIONS } from "@/lib/content";
 import {
   CONTACT_FIELDS,
+  HONEYPOT_FIELD,
   NAME_MAX_LENGTH,
   PHONE_MAX_LENGTH,
   firstNameOf,
@@ -88,7 +89,7 @@ function SuccessPanel({ firstName }: { firstName: string }) {
 
 export default function ContactForm() {
   const [values, setValues] = useState<ContactInput>({ name: "", phone: "", goal: "" });
-  const [company, setCompany] = useState("");
+  const [trap, setTrap] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<FormStatus>("idle");
   const [failure, setFailure] = useState<BannerFailure>("server");
@@ -128,7 +129,7 @@ export default function ContactForm() {
 
     isSubmitting.current = true;
     setStatus("submitting");
-    const result = await submitContact({ ...values, company });
+    const result = await submitContact({ ...values, [HONEYPOT_FIELD]: trap });
     isSubmitting.current = false;
 
     if (result.ok) {
@@ -188,17 +189,21 @@ export default function ContactForm() {
             aria-busy={status === "submitting"}
             className="relative w-full rounded-[1.25rem] border border-white/12 bg-dark-card p-6 shadow-[0_18px_40px_-14px_rgba(0,0,0,0.65)] sm:p-8 lg:p-10"
           >
-            {/* Honeypot: hidden from people and assistive tech; bots fill it */}
+            {/* Honeypot: hidden from people and assistive tech; bots fill it.
+                Neutral name and label so browser autofill and password
+                managers leave it empty. */}
             <div className="absolute -start-[9999px] top-0 h-px w-px overflow-hidden" aria-hidden="true">
-              <label htmlFor="contact-company">חברה</label>
+              <label htmlFor="contact-hp">השאירו שדה זה ריק</label>
               <input
-                id="contact-company"
+                id="contact-hp"
                 type="text"
-                name="company"
+                name={HONEYPOT_FIELD}
                 tabIndex={-1}
                 autoComplete="off"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
+                data-1p-ignore="true"
+                data-lpignore="true"
+                value={trap}
+                onChange={(e) => setTrap(e.target.value)}
               />
             </div>
 

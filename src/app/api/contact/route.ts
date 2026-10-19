@@ -6,6 +6,7 @@ import {
   type ContactErrorCode,
   type ContactResponse,
   type FieldErrors,
+  HONEYPOT_FIELD,
 } from "@/lib/contact";
 import { renderLeadEmail, type Lead } from "@/lib/lead-email";
 
@@ -16,7 +17,6 @@ const RATE_LIMIT = 5; // requests
 const RATE_WINDOW_MS = 60_000; // per minute, per address
 const RATE_MAP_PRUNE_AT = 500; // entries before expired ones are swept
 const DELIVERY_TIMEOUT_MS = 8_000;
-const HONEYPOT_FIELD = "company";
 
 /* ═══════════════════════ RATE LIMITER ═══════════════════════
  * Best effort: in-memory, so it is per serverless instance, not global.
@@ -188,7 +188,10 @@ export async function POST(request: Request) {
     if (!body) return fail("bad_request", 400);
 
     /* Bots fill every field; people never see this one. Pretend success. */
-    if (readString(body, HONEYPOT_FIELD).trim()) return respond({ success: true });
+    if (readString(body, HONEYPOT_FIELD).trim()) {
+      console.warn("Contact form: honeypot filled, submission dropped");
+      return respond({ success: true });
+    }
 
     const input = {
       name: readString(body, "name"),
