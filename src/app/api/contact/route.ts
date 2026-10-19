@@ -7,6 +7,7 @@ import {
   type ContactResponse,
   type FieldErrors,
 } from "@/lib/contact";
+import { renderLeadEmail, type Lead } from "@/lib/lead-email";
 
 /* ═══════════════════════ LIMITS ═══════════════════════ */
 
@@ -120,40 +121,23 @@ function readString(body: Record<string, unknown>, key: string): string {
   return typeof value === "string" ? value : "";
 }
 
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
 /* ═══════════════════════ DELIVERY ═══════════════════════
  * A lead counts as received only when at least one channel confirms it.
  * Logs never include the visitor's name or phone.
  */
 
-type Lead = { name: string; phone: string; goal: string };
 type DeliveryResult = "delivered" | "failed" | "unconfigured";
 
 async function sendEmail(lead: Lead, apiKey: string): Promise<boolean> {
   const { Resend } = await import("resend");
   const resend = new Resend(apiKey);
+  const { subject, html, text } = renderLeadEmail(lead);
   const { error } = await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
     to: process.env.CONTACT_EMAIL || "yarinmanoah1443@gmail.com",
-    subject: `ליד חדש: ${lead.name}`,
-    html: `
-      <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 480px;">
-        <h2 style="color: #2ECC71;">פנייה חדשה מהאתר</h2>
-        <p><strong>שם:</strong> ${escapeHtml(lead.name)}</p>
-        <p><strong>טלפון:</strong> <a href="tel:${escapeHtml(lead.phone)}">${escapeHtml(lead.phone)}</a></p>
-        <p><strong>מה רוצה לקבל מהליווי:</strong> ${escapeHtml(lead.goal)}</p>
-        <hr style="border: none; border-top: 1px solid #eee; margin: 16px 0;" />
-        <p style="color: #888; font-size: 12px;">${new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" })}</p>
-      </div>
-    `,
+    subject,
+    html,
+    text,
   });
   if (error) {
     console.error("Contact email not sent:", error.name);
