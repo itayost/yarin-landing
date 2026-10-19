@@ -1,4 +1,4 @@
-import type { ContactInput, ContactResponse, FieldErrors } from "./contact";
+import { HONEYPOT_FIELD, type ContactInput, type ContactResponse, type FieldErrors } from "./contact";
 
 /* ═══════════════════════ CONTACT SUBMIT (browser) ═══════════════════════
  * Posts the form and turns every outcome (network, timeout, HTTP status,
@@ -32,7 +32,7 @@ async function readResponse(res: Response): Promise<ContactResponse | null> {
 }
 
 export async function submitContact(
-  payload: ContactInput & { company: string },
+  payload: ContactInput & { [HONEYPOT_FIELD]: string },
   { fetchImpl = fetch, timeoutMs = SUBMIT_TIMEOUT_MS, isOnline = browserIsOnline }: SubmitOptions = {}
 ): Promise<SubmitResult> {
   if (!isOnline()) return { ok: false, reason: "offline" };

@@ -114,11 +114,23 @@ describe("POST /api/contact", () => {
     expect(pulled).toBeLessThan(10);
   });
 
-  test("silently accepts and drops a filled honeypot", async () => {
-    const res = await POST(makeRequest({ ...VALID, company: "Spam Inc" }));
+  test("accepts and drops a filled honeypot, logging the drop", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    const res = await POST(makeRequest({ ...VALID, hp_check: "Spam Inc" }));
 
     expect(res.status).toBe(200);
     expect(sendMock).not.toHaveBeenCalled();
+    expect(warn).toHaveBeenCalledWith("Contact form: honeypot filled, submission dropped");
+  });
+
+  test("still delivers a lead whose browser autofilled a company field", async () => {
+    sendMock.mockResolvedValue({ data: { id: "1" }, error: null });
+
+    const res = await POST(makeRequest({ ...VALID, company: "ItayOst", hp_check: "" }));
+
+    expect(res.status).toBe(200);
+    expect(sendMock).toHaveBeenCalledOnce();
   });
 
   test("reports delivery_failed when Resend returns an error and nothing else is set", async () => {

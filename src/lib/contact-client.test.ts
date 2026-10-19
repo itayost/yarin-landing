@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from "vitest";
 import { submitContact } from "./contact-client";
 import { GOAL_OPTIONS } from "./content";
 
-const PAYLOAD = { name: "דנה", phone: "0543451727", goal: GOAL_OPTIONS[0], company: "" };
+const PAYLOAD = { name: "דנה", phone: "0543451727", goal: GOAL_OPTIONS[0], hp_check: "" };
 const online = () => true;
 
 function jsonResponse(status: number, body: unknown) {
