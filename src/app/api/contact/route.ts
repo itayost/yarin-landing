@@ -74,12 +74,36 @@ function isSameOrigin(request: Request): boolean {
 
 class PayloadTooLargeError extends Error {}
 
+/* Reads the body chunk by chunk and stops once it passes the cap, so a
+ * chunked request with no Content-Length cannot make us buffer it all. */
+async function readCappedText(request: Request, maxBytes: number): Promise<string> {
+  if (!request.body) return "";
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel();
+      throw new PayloadTooLargeError();
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(total);
+  chunks.reduce((offset, chunk) => {
+    bytes.set(chunk, offset);
+    return offset + chunk.byteLength;
+  }, 0);
+  return new TextDecoder().decode(bytes);
+}
+
 async function readJsonObject(request: Request): Promise<Record<string, unknown> | null> {
   const declared = Number(request.headers.get("content-length") ?? 0);
   if (declared > MAX_BODY_BYTES) throw new PayloadTooLargeError();
 
-  const text = await request.text();
-  if (new TextEncoder().encode(text).length > MAX_BODY_BYTES) throw new PayloadTooLargeError();
+  const text = await readCappedText(request, MAX_BODY_BYTES);
 
   try {
     const parsed: unknown = JSON.parse(text);

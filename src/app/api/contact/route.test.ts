@@ -89,6 +89,31 @@ describe("POST /api/contact", () => {
     expect(res.status).toBe(413);
   });
 
+  test("rejects an oversized streamed body that has no Content-Length", async () => {
+    const chunk = new TextEncoder().encode("x".repeat(1_024));
+    let pulled = 0;
+    const stream = new ReadableStream<Uint8Array>({
+      pull(controller) {
+        pulled += 1;
+        if (pulled > 1_000) controller.close();
+        else controller.enqueue(chunk);
+      },
+    });
+    const request = new Request("http://localhost:3000/api/contact", {
+      method: "POST",
+      headers: { "content-type": "application/json", host: "localhost:3000", "x-forwarded-for": "198.51.100.7" },
+      body: stream,
+      duplex: "half",
+    } as RequestInit);
+
+    const res = await POST(request);
+
+    expect(request.headers.get("content-length")).toBeNull();
+    expect(res.status).toBe(413);
+    /* stopped reading soon after the cap instead of buffering ~1 MB */
+    expect(pulled).toBeLessThan(10);
+  });
+
   test("silently accepts and drops a filled honeypot", async () => {
     const res = await POST(makeRequest({ ...VALID, company: "Spam Inc" }));
 
