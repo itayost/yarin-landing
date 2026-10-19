@@ -120,7 +120,7 @@ export default function Hero() {
           className="hero-rise mt-6 max-w-[36ch] text-lg leading-relaxed text-white/80 sm:mt-7 sm:text-xl"
           style={delay(200)}
         >
-          ליווי 1-על-1 במניות, אופציות, פיוצ&apos;רס וקריפטו. מותאם אישית
+          ליווי 1 על 1 במניות, חוזים עתידיים וקריפטו. מותאם אישית
           לרמה שלך.
         </p>
 
@@ -129,7 +129,7 @@ export default function Hero() {
           style={delay(300)}
         >
           <a href="#contact" className="cta-btn group px-10 py-4 text-lg">
-            בוא נדבר
+            דברו איתי
             <ArrowLeft
               className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1"
               aria-hidden="true"

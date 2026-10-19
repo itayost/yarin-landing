@@ -169,7 +169,7 @@ export default function Navbar() {
                 onClick={scrollToContact}
                 className="cta-btn text-sm px-6 py-2.5"
               >
-                בוא נדבר
+                דברו איתי
               </button>
             </div>
 
@@ -261,7 +261,7 @@ export default function Navbar() {
                 }}
                 className="cta-btn text-lg px-10 py-4 mt-4"
               >
-                בוא נדבר
+                דברו איתי
               </motion.button>
             </div>
           </motion.div>

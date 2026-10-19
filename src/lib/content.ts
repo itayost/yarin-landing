@@ -24,11 +24,11 @@ export const IMAGES = {
 export type TrustBadge = { icon: LucideIcon; value: string; label: string };
 
 export const TRUST_BADGES: TrustBadge[] = [
-  { icon: CalendarClock, value: "6+", label: "שנות ניסיון" },
+  { icon: CalendarClock, value: "7+", label: "שנים של ניסיון" },
   {
     icon: GraduationCap,
     value: "B.Sc",
-    label: "+ התמחות לרישיון ניהול תיקים",
+    label: "בהנדסת תוכנה + התמחות לרישיון ניהול תיקים",
   },
   {
     icon: Presentation,
@@ -71,12 +71,12 @@ export type AboutBeat = {
 
 export const ABOUT_BEATS: AboutBeat[] = [
   {
-    figure: { value: "6+", lines: ["שנות ניסיון"] },
+    figure: { value: "7+", lines: ["שנות ניסיון"] },
     title: "ההכשרה והניסיון",
     segments: [
-      { text: "על רישיון מהנדס תוכנה (B.Sc), " },
+      { text: "בעל תואר בהנדסת תוכנה (B.Sc), " },
       { text: "סוחר יומי בחוזים עתידיים (נוסטרו)", isStrong: true },
-      { text: ", משקיע במניות וקריפטו עם מעל 6 שנות ניסיון." },
+      { text: ", משקיע במניות וקריפטו עם מעל 7 שנות ניסיון." },
     ],
   },
   {
