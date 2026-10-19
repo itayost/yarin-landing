@@ -1,10 +1,10 @@
 "use client";
 
-import { Instagram, Phone, Mail, ArrowUp } from "lucide-react";
+import { Instagram, Phone, Mail, ArrowUp, ArrowUpLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CONTACT } from "@/lib/constants";
-import { ABOUT, DISCLAIMERS, IMAGES } from "@/lib/content";
+import { ABOUT, AFFILIATE_LINKS, AFFILIATE_NOTE, DISCLAIMERS, IMAGES } from "@/lib/content";
 
 /* ═══════════════════════ NAV LINKS ═══════════════════════ */
 
@@ -123,6 +123,31 @@ export default function Footer() {
             <span>חזרה למעלה</span>
             <ArrowUp className="w-4 h-4" />
           </button>
+        </div>
+
+        {/* ── Partner platforms (affiliate links, disclosed beside them) ── */}
+        <div className="mb-8 flex flex-wrap items-center gap-x-3 gap-y-3">
+          <span className="text-sm text-text-secondary">{AFFILIATE_NOTE.title}</span>
+          <ul className="flex flex-wrap items-center gap-2">
+            {AFFILIATE_LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="sponsored noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/4 px-3.5 py-1.5 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/15 hover:bg-white/10 hover:text-white"
+                >
+                  <bdi dir="ltr">{link.label}</bdi>
+                  <ArrowUpLeft
+                    className="h-3.5 w-3.5 text-white/45 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">(נפתח בחלון חדש)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <span className="text-xs text-white/50">{AFFILIATE_NOTE.disclosure}</span>
         </div>
 
         {/* ── Disclaimer ── */}

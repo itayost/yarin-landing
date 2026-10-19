@@ -251,3 +251,9 @@ export const AFFILIATE_LINKS = [
   { label: "Interactive Brokers", href: "https://lp3.inter-il.com/ab/742" },
   { label: "TradingView", href: "https://www.tradingview.com/?aff_id=169916" },
 ];
+
+/* Footer row around AFFILIATE_LINKS; the disclosure must stay beside them */
+export const AFFILIATE_NOTE = {
+  title: "פלטפורמות מומלצות",
+  disclosure: "קישורי שותפים: ייתכן שאקבל עמלה על הצטרפות דרכם.",
+};
