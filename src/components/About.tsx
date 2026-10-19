@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ABOUT, ABOUT_BEATS, HOOK_PEN_WORD, IMAGES } from "@/lib/content";
+import CountUp from "./CountUp";
 
 /* ═══════════════════════ PEN UNDERLINE ═══════════════════════ */
 
@@ -36,7 +37,7 @@ export default function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="relative overflow-hidden bg-dark-section py-20 md:py-32"
+      className="relative overflow-clip bg-dark-section py-20 md:py-32"
     >
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <h2
@@ -75,7 +76,13 @@ export default function About() {
               >
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1.5 sm:block">
                   <p className="text-4xl leading-none font-black text-white tabular-nums sm:text-5xl">
-                    <bdi dir="ltr">{figure.value}</bdi>
+                    <bdi dir="ltr">
+                      {figure.isCountUp ? (
+                        <CountUp value={figure.value} />
+                      ) : (
+                        figure.value
+                      )}
+                    </bdi>
                   </p>
                   {figure.lines.length > 0 && (
                     <ul className="text-sm leading-snug text-white/65 sm:mt-2 sm:space-y-1">

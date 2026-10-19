@@ -28,7 +28,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -36,7 +36,9 @@ body {
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip, not hidden: hidden makes body a scroll container that never
+     scrolls, which freezes every view() timeline on the page */
+  overflow-x: clip;
 }
 
 ::selection {
@@ -255,6 +257,68 @@ body {
     animation-timeline: view();
     animation-range: entry 20% cover 35%;
   }
+}
+
+/* ═══════════════════════ APPROACH: CREED CHECKLIST ═══════════════════════
+   The four beliefs tick off like a pre-trade checklist as the reader scrolls
+   to them, in reading order (--i), so they are all confirmed just before the
+   pen strikes "הבטחות שווא" below. The default state is the finished list:
+   browsers without scroll timelines and reduced-motion readers see it done. */
+
+.creed { view-timeline-name: --creed; }
+
+.creed-tick {
+  background: color-mix(in srgb, var(--color-brand-green) 30%, transparent);
+  color: var(--color-accent-green);
+}
+.creed-check { stroke-dasharray: 1; }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .creed-tick,
+    .creed-check,
+    .creed-word {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --creed;
+      animation-range:
+        cover calc(4% + var(--i) * 5%)
+        cover calc(11% + var(--i) * 5%);
+    }
+    .creed-tick { animation-name: creed-tick; }
+    .creed-check { animation-name: hero-draw; }
+    .creed-word { animation-name: creed-word; }
+  }
+}
+
+@keyframes creed-tick {
+  from {
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.2);
+    scale: 0.86;
+  }
+  75% { scale: 1.08; }
+}
+
+@keyframes creed-word {
+  from { color: rgb(255 255 255 / 0.36); }
+}
+
+/* ═══════════════════════ USERWAY WIDGET ═══════════════════════
+   Lines the accessibility button up with the WhatsApp button: same centre
+   height. WhatsApp sits at bottom-6 (1.5rem) and is 3.5rem tall; UserWay's
+   default button is 44px, so it needs half the size difference added.
+   Its script sets the position inline, hence !important. */
+
+:root {
+  --fab-bottom: 1.5rem;
+  --fab-size: 3.5rem;
+  --userway-icon-size: 44px;
+}
+
+.uwy .userway_buttons_wrapper {
+  top: auto !important;
+  bottom: calc(var(--fab-bottom) + (var(--fab-size) - var(--userway-icon-size)) / 2) !important;
 }
 
 /* ═══════════════════════ HERO ═══════════════════════ */

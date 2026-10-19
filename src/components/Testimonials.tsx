@@ -1,4 +1,5 @@
-import { MessageCircle, Star } from "lucide-react";
+import { Star } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
 import { TESTIMONIALS, type Testimonial } from "@/lib/content";
 import Marquee from "./Marquee";
 
@@ -10,7 +11,7 @@ const REVIEWS_SPEED_PX_PER_SECOND = 26;
 function SourceMark({ t }: { t: Testimonial }) {
   if (t.source === "whatsapp") {
     return (
-      <MessageCircle className="h-5 w-5 text-whatsapp" aria-label="הודעת וואטסאפ" />
+      <WhatsAppIcon className="h-5 w-5 text-whatsapp" label="הודעת וואטסאפ" />
     );
   }
   const stars = t.stars ?? 5;

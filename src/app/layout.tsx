@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
+import Script from "next/script";
 import { CONTACT } from "@/lib/constants";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
@@ -15,14 +16,14 @@ const heebo = Heebo({
 export const metadata: Metadata = {
   title: "ירין מנוח | ליווי אישי במסחר בשוק ההון",
   description:
-    "ליווי 1-על-1 במסחר והשקעות: חוזים עתידיים, מניות וקריפטו. 6+ שנות ניסיון, B.Sc. הנדסת תוכנה, בהתמחות לרישיון ניהול תיקי השקעות.",
+    "ליווי 1-על-1 במסחר והשקעות: חוזים עתידיים, מניות וקריפטו. 7+ שנות ניסיון, B.Sc. הנדסת תוכנה, בהתמחות לרישיון ניהול תיקי השקעות.",
   keywords:
     "מסחר במניות, ליווי אישי, שוק ההון, אופציות, פיוצ'רס, קריפטו, ירין מנוח, מנטור מסחר",
   authors: [{ name: "ירין מנוח" }],
   openGraph: {
     title: "ירין מנוח | ליווי אישי במסחר בשוק ההון",
     description:
-      "ליווי 1-על-1 במניות, אופציות, פיוצ'רס וקריפטו. מותאם אישית לרמה שלך.",
+      "ליווי 1 על 1 במניות, חוזים עתידיים וקריפטו. מותאם אישית לרמה שלך.",
     siteName: "ירין מנוח",
     locale: "he_IL",
     type: "website",
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "ירין מנוח | ליווי אישי במסחר בשוק ההון",
-    description: "ליווי 1-על-1 במניות, אופציות, פיוצ'רס וקריפטו.",
+    description: "ליווי 1 על 1 במניות, חוזים עתידיים וקריפטו.",
     creator: "@yarinmanoah",
   },
   robots: {
@@ -106,6 +107,14 @@ export default function RootLayout({
         <div className="noise-overlay" aria-hidden="true" />
         {children}
         </MotionProvider>
+        {/* UserWay accessibility widget; loads after the page is idle */}
+        <Script
+          id="userway-widget"
+          src="https://cdn.userway.org/widget.js"
+          data-account="7ek953Xjr7"
+          data-language="he"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

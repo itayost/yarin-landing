@@ -24,11 +24,11 @@ export const IMAGES = {
 export type TrustBadge = { icon: LucideIcon; value: string; label: string };
 
 export const TRUST_BADGES: TrustBadge[] = [
-  { icon: CalendarClock, value: "6+", label: "שנות ניסיון" },
+  { icon: CalendarClock, value: "7+", label: "שנים של ניסיון" },
   {
     icon: GraduationCap,
     value: "B.Sc",
-    label: "+ התמחות לרישיון ניהול תיקים",
+    label: "בהנדסת תוכנה + התמחות לרישיון ניהול תיקים",
   },
   {
     icon: Presentation,
@@ -64,19 +64,19 @@ export const HOOK_PEN_WORD = "סוחר";
  * emphasised. Joining a beat's segments reproduces the PDF sentence. */
 export type AboutBeat = {
   /* Big word beside the paragraph, with one or more lines under it */
-  figure: { value: string; lines: string[] };
+  figure: { value: string; lines: string[]; isCountUp?: boolean };
   title: string;
   segments: { text: string; isStrong?: boolean }[];
 };
 
 export const ABOUT_BEATS: AboutBeat[] = [
   {
-    figure: { value: "6+", lines: ["שנות ניסיון"] },
+    figure: { value: "7+", lines: ["שנות ניסיון"] },
     title: "ההכשרה והניסיון",
     segments: [
-      { text: "על רישיון מהנדס תוכנה (B.Sc), " },
+      { text: "בעל תואר בהנדסת תוכנה (B.Sc), " },
       { text: "סוחר יומי בחוזים עתידיים (נוסטרו)", isStrong: true },
-      { text: ", משקיע במניות וקריפטו עם מעל 6 שנות ניסיון." },
+      { text: ", משקיע במניות וקריפטו עם מעל 7 שנות ניסיון." },
     ],
   },
   {
@@ -86,16 +86,16 @@ export const ABOUT_BEATS: AboutBeat[] = [
       { text: "עובד בבית ההשקעות של " },
       { text: "הפניקס", isStrong: true },
       {
-        text: ", בתהליכי התמחות לקבלת רישיון ניהול תיקי השקעות ומרצה באחת המכללות המובילות בארץ.",
+        text: ", בתהליכי התמחות לקבלת רישיון ניהול תיקי השקעות ומרצה להשקעות באחת המכללות המובילות בארץ.",
       },
     ],
   },
   {
-    figure: { value: "100+", lines: ["תלמידים"] },
+    figure: { value: "200+", lines: ["תלמידים"], isCountUp: true },
     title: "התלמידים",
     segments: [
       { text: "ליוויתי " },
-      { text: "מעל 100 תלמידים", isStrong: true },
+      { text: "מעל 200 תלמידים", isStrong: true },
       {
         text: " לדריסת רגל בעולם ההשקעות, פתיחת תיקים ומעבר למסחר שיטתי ורווחי.",
       },
@@ -114,15 +114,19 @@ export const APPROACH = {
     "אני מלווה אותך אישית ומעניק לך גב מקצועי מלא, צעד אחר צעד, עד שאתה שולט בשוק, פועל בביטחון ויודע לייצר ולהגדיל רווחים בעצמך.",
 };
 
-/* Display split of APPROACH for the section's typography; same words. */
+/* Display split of APPROACH for the "two paths" ledger: each belief stands
+ * opposite the habit it rules out. Every phrase is the owner's own copy;
+ * only the two column labels are new wording. */
 export const APPROACH_DISPLAY = {
   lead: "אני מאמין",
-  pillars: ["עבודה מדויקת", "הכנה מוקדמת", "משמעת", "ניהול סיכונים"],
-  punch: { before: "בלי קיצורי דרך ו", struck: "הבטחות שווא", after: "." },
-  contrast: {
-    rejected: "קורסים מוקלטים",
-    chosen: "ליווי אישי בלבד (1 על 1) מול המסכים",
-  },
+  mineLabel: "ככה אני עובד",
+  notLabel: "ככה לא",
+  pairs: [
+    { mine: "ליווי אישי בלבד (1 על 1) מול המסכים", not: "קורסים מוקלטים" },
+    { mine: "הכנה מוקדמת", not: "קיצורי דרך" },
+    { mine: "ניהול סיכונים", not: "הבטחות שווא" },
+    { mine: "עבודה מדויקת ומשמעת", not: "מכללות המוניות ומסחור" },
+  ],
 };
 
 /* ═══════════════════════ FIT ═══════════════════════ */
@@ -239,6 +243,11 @@ export const TESTIMONIALS: Testimonial[] = [
     context: "תלמיד · הודעה בוואטסאפ",
     quote: "שעור אליפות ירין.",
   },
+  {
+    source: "whatsapp",
+    context: "תלמיד · הודעה בוואטסאפ",
+    quote: "אני לא יודע מה מחכה לי ב-2027. שינית לי את החיים ואת ההסתכלות.",
+  },
 ];
 
 /* ═══════════════════════ LINKS ═══════════════════════ */
@@ -247,3 +256,8 @@ export const AFFILIATE_LINKS = [
   { label: "Interactive Brokers", href: "https://lp3.inter-il.com/ab/742" },
   { label: "TradingView", href: "https://www.tradingview.com/?aff_id=169916" },
 ];
+
+/* Footer row label for AFFILIATE_LINKS */
+export const AFFILIATE_NOTE = {
+  title: "פלטפורמות מומלצות",
+};
