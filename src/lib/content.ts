@@ -254,9 +254,20 @@ export const TESTIMONIALS: Testimonial[] = [
 
 /* ═══════════════════════ LINKS ═══════════════════════ */
 
+/* Marks cut from the owner-supplied logos (transparent PNG, 64px tall).
+ * displayHeight balances optical weight: the tall IBKR mark runs larger
+ * than the wide TradingView one. */
 export const AFFILIATE_LINKS = [
-  { label: "Interactive Brokers", href: "https://lp3.inter-il.com/ab/742" },
-  { label: "TradingView", href: "https://www.tradingview.com/?aff_id=169916" },
+  {
+    label: "Interactive Brokers",
+    href: "https://lp3.inter-il.com/ab/742",
+    mark: { src: "/images/partners/ibkr-mark.png", width: 33, height: 64, displayHeight: 20 },
+  },
+  {
+    label: "TradingView",
+    href: "https://www.tradingview.com/?aff_id=169916",
+    mark: { src: "/images/partners/tradingview-mark.png", width: 128, height: 64, displayHeight: 14 },
+  },
 ];
 
 /* Footer row label for AFFILIATE_LINKS */

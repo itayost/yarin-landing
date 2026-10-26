@@ -103,30 +103,36 @@ export default function Footer() {
           ))}
         </nav>
 
-        {/* ── Partner platforms (affiliate links) ── */}
+        {/* ── Partner platforms (affiliate links): title, then the buttons ── */}
         <div className="mt-10 flex flex-col items-center gap-3">
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3">
-            <span className="text-sm text-text-secondary">{AFFILIATE_NOTE.title}</span>
-            <ul className="flex flex-wrap items-center justify-center gap-2">
-              {AFFILIATE_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="sponsored noopener noreferrer"
-                    className="group inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/4 px-3.5 py-1.5 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/15 hover:bg-white/10 hover:text-white"
-                  >
-                    <bdi dir="ltr">{link.label}</bdi>
-                    <ArrowUpLeft
-                      className="h-3.5 w-3.5 text-white/45 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">(נפתח בחלון חדש)</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <span className="text-sm text-text-secondary">{AFFILIATE_NOTE.title}</span>
+          <ul className="flex flex-wrap items-center justify-center gap-2.5">
+            {AFFILIATE_LINKS.map((link) => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="sponsored noopener noreferrer"
+                  className="group inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/4 py-2 ps-3.5 pe-3 text-sm font-medium text-white/85 transition-colors duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
+                >
+                  <Image
+                    src={link.mark.src}
+                    alt=""
+                    width={link.mark.width}
+                    height={link.mark.height}
+                    style={{ height: link.mark.displayHeight }}
+                    className="w-auto shrink-0"
+                  />
+                  <bdi dir="ltr">{link.label}</bdi>
+                  <ArrowUpLeft
+                    className="h-3.5 w-3.5 text-white/45 transition-transform duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">(נפתח בחלון חדש)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* ── Disclaimer ── */}
