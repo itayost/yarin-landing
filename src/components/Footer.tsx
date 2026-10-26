@@ -1,11 +1,11 @@
 "use client";
 
-import { Instagram, Phone, Mail, ArrowUp, ArrowUpLeft } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Instagram, Phone, ArrowUp, ArrowUpLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CONTACT } from "@/lib/constants";
 import { ABOUT, AFFILIATE_LINKS, AFFILIATE_NOTE, DISCLAIMERS, IMAGES } from "@/lib/content";
+import EmailMenu from "./EmailMenu";
 
 /* ═══════════════════════ NAV LINKS ═══════════════════════ */
 
@@ -59,38 +59,12 @@ const SOCIALS = [
     hoverBg: "hover:bg-brand-green/20",
     hoverText: "hover:text-accent-green",
   },
-  {
-    icon: Mail,
-    href: `mailto:${CONTACT.email}`,
-    label: "אימייל",
-    /* mailto does nothing without a mail app, so the click also copies it */
-    copyText: CONTACT.email,
-    hoverBg: "hover:bg-white/10",
-    hoverText: "hover:text-white",
-  },
 ];
 
 /* ═══════════════════════ COMPONENT ═══════════════════════ */
 
-const COPIED_NOTICE_MS = 2_500;
-
 export default function Footer() {
   const year = new Date().getFullYear();
-  const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    if (!copied) return;
-    const timer = setTimeout(() => setCopied(false), COPIED_NOTICE_MS);
-    return () => clearTimeout(timer);
-  }, [copied]);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard?.writeText(text).then(
-      () => setCopied(true),
-      () => setCopied(false)
-    );
-  };
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -176,22 +150,12 @@ export default function Footer() {
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   className={`w-10 h-10 rounded-full bg-white/4 ${s.hoverBg} flex items-center justify-center text-text-secondary ${s.hoverText} transition-all duration-300`}
                   aria-label={s.label}
-                  onClick={"copyText" in s && s.copyText ? () => copyToClipboard(s.copyText) : undefined}
                 >
                   <Icon className="w-4 h-4" />
                 </a>
               );
             })}
-            <p
-              role="status"
-              className={`pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-dark-card px-3 py-1 text-xs text-white/85 transition-opacity duration-200 ${copied ? "opacity-100" : "opacity-0"}`}
-            >
-              {copied ? (
-                <>
-                  הכתובת הועתקה: <bdi dir="ltr">{CONTACT.email}</bdi>
-                </>
-              ) : null}
-            </p>
+            <EmailMenu />
           </div>
 
           <div className="flex flex-col items-center gap-2 text-xs text-text-secondary sm:flex-row sm:gap-4">
