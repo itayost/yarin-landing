@@ -1,7 +1,7 @@
 import { describe, expect, test } from "vitest";
 import { formatPhone, renderLeadEmail, toInternational, whatsappLink } from "./lead-email";
 
-const LEAD = { name: "דנה כהן", phone: "0543451727", goal: "ללמוד מסחר יומי" };
+const LEAD = { name: "דנה כהן", phone: "0543451727", goal: "ללמוד מסחר יומי בנוסטרו" };
 const RECEIVED = new Date("2026-10-19T11:32:00Z");
 
 describe("phone helpers", () => {
@@ -29,7 +29,7 @@ describe("phone helpers", () => {
 
 describe("renderLeadEmail", () => {
   test("puts the name and goal in the subject for the inbox list", () => {
-    expect(renderLeadEmail(LEAD, RECEIVED).subject).toBe("ליד חדש: דנה כהן · ללמוד מסחר יומי");
+    expect(renderLeadEmail(LEAD, RECEIVED).subject).toBe("ליד חדש: דנה כהן · ללמוד מסחר יומי בנוסטרו");
   });
 
   test("renders the call and WhatsApp actions and the readable phone", () => {
@@ -60,7 +60,7 @@ describe("renderLeadEmail", () => {
 
     expect(text).toContain("שם: דנה כהן");
     expect(text).toContain("טלפון: 054-345-1727");
-    expect(text).toContain("רוצה לקבל מהליווי: ללמוד מסחר יומי");
+    expect(text).toContain("רוצה לקבל מהליווי: ללמוד מסחר יומי בנוסטרו");
     expect(text).toContain("https://wa.me/972543451727");
   });
 });
