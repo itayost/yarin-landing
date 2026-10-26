@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { APPROACH, APPROACH_DISPLAY, FIT } from "@/lib/content";
 
 /* ═══════════════════════ CREED TICK ═══════════════════════
@@ -28,6 +28,22 @@ function CreedTick() {
   );
 }
 
+/* The "ככה לא" marker: the muted mirror of the green tick. The negation
+ * lives in the icon so the words stay whole (a strikethrough cut through
+ * the Hebrew letters at mid-height). */
+function CrossMark({ size }: { size: "sm" | "md" }) {
+  const tile = size === "md" ? "h-9 w-9" : "h-5 w-5";
+  const icon = size === "md" ? "h-4 w-4" : "h-3 w-3";
+  return (
+    <span
+      className={`grid shrink-0 place-items-center rounded-full bg-white/10 ${tile}`}
+      aria-hidden="true"
+    >
+      <X className={`${icon} text-white/75`} strokeWidth={2.5} />
+    </span>
+  );
+}
+
 function CheckBullet() {
   return (
     <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-green/30">
@@ -38,7 +54,7 @@ function CheckBullet() {
 
 /* ═══════════════════════ APPROACH ═══════════════════════
  * Two paths on a central spine: each belief (a lifted graphite note, ticking
- * off in reading order) stands opposite the habit it rules out (flat, struck).
+ * off in reading order) stands opposite the habit it rules out (flat, with a cross marker).
  * On phones the ruled-out habit sits under its belief so pairs stay together.
  */
 
@@ -81,27 +97,34 @@ export default function Approach() {
                       <span className="creed-word text-[clamp(1.35rem,1.1rem+0.9vw,1.9rem)] leading-tight font-black">
                         {mine}
                       </span>
-                      <s className="text-base text-white/50 decoration-white/30 md:hidden">
-                        <span className="sr-only">{notLabel}: </span>
-                        {not}
-                      </s>
+                      {/* phones: the ruled-out habit sits under its belief */}
+                      <span className="flex items-center gap-2 text-base font-semibold text-white/85 md:hidden">
+                        <CrossMark size="sm" />
+                        <span>
+                          <span className="sr-only">{notLabel}: </span>
+                          {not}
+                        </span>
+                      </span>
                     </span>
                   </li>
                 ))}
               </ol>
             </div>
 
-            <div className="hidden px-6 py-7 sm:px-9 md:ms-10 md:block">
-              <h3 className="text-lg font-bold text-white/50">{notLabel}</h3>
+            {/* Desktop only: a recessed card (darker, flat, level) against the
+                lifted, tilted card of Yarin's side */}
+            <div className="hidden rounded-[1.25rem] border border-white/8 bg-dark-surface px-6 py-7 sm:px-9 md:ms-10 md:block">
+              <h3 className="text-lg font-bold text-white/75">{notLabel}</h3>
               <ul className="mt-3">
                 {pairs.map(({ not }) => (
                   <li
                     key={not}
-                    className="flex h-28 items-center border-b border-white/6 py-4 last:border-b-0"
+                    className="flex h-28 items-center gap-4 border-b border-white/6 py-4 last:border-b-0"
                   >
-                    <s className="text-[clamp(1.2rem,1rem+0.7vw,1.6rem)] leading-tight font-bold text-white/45 decoration-white/30 decoration-2">
+                    <CrossMark size="md" />
+                    <span className="text-[clamp(1.3rem,1.05rem+0.85vw,1.8rem)] leading-tight font-semibold text-white/85">
                       {not}
-                    </s>
+                    </span>
                   </li>
                 ))}
               </ul>
