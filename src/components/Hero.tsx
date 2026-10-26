@@ -8,10 +8,13 @@ import HeroMotion from "./HeroMotion";
  * notes. xl: notes pinned around the headline.
  */
 
+/* Wide screens: 2 + 2 around the headline. Experience and lecturer on the
+ * right; the two credentials (B.Sc, specialization) stacked on the left. */
 const BADGE_PINS = [
   "lg:rotate-[1.5deg] xl:top-[17%] xl:right-[7%] xl:rotate-[2.5deg]",
-  "lg:-rotate-[1.5deg] lg:translate-y-3 xl:top-[56%] xl:left-[5%] xl:translate-y-0 xl:-rotate-2",
-  "lg:rotate-1 xl:bottom-[10%] xl:right-[10%] xl:-rotate-[1.5deg]",
+  "lg:-rotate-[1.5deg] lg:translate-y-3 xl:top-[24%] xl:left-[6%] xl:translate-y-0 xl:-rotate-2",
+  "lg:rotate-1 xl:top-[54%] xl:left-[4%] xl:rotate-[1.5deg]",
+  "lg:-rotate-1 lg:translate-y-2 xl:bottom-[10%] xl:right-[10%] xl:translate-y-0 xl:-rotate-[1.5deg]",
 ];
 
 /* ═══════════════════════ MOTION ═══════════════════════ */
@@ -23,7 +26,7 @@ const PIN_LAG = 420;
 
 /* Pointer depth per note in px at the hero's edge (xl + mouse only); the
  * middle note moves against the others so the layer reads as loose paper. */
-const BADGE_DEPTH = [18, -14, 24];
+const BADGE_DEPTH = [18, -14, 24, -10];
 
 const pinStyle = (ms: number) =>
   ({ "--d": `${ms}ms` }) as React.CSSProperties;

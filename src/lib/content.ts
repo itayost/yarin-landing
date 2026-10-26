@@ -5,6 +5,7 @@
 
 import {
   CalendarClock,
+  ChartLine,
   GraduationCap,
   Presentation,
   type LucideIcon,
@@ -25,15 +26,16 @@ export type TrustBadge = { icon: LucideIcon; value: string; label: string };
 
 export const TRUST_BADGES: TrustBadge[] = [
   { icon: CalendarClock, value: "7+", label: "שנים של ניסיון" },
+  { icon: GraduationCap, value: "B.Sc", label: "בהנדסת תוכנה" },
   {
-    icon: GraduationCap,
-    value: "B.Sc",
-    label: "בהנדסת תוכנה + התמחות לרישיון ניהול תיקים",
+    icon: ChartLine,
+    value: "התמחות",
+    label: "להוצאת רישיון בניהול תיקי השקעות",
   },
   {
     icon: Presentation,
     value: "מרצה",
-    label: "ללימוד השקעות במניות, קריפטו וחוזים עתידיים",
+    label: "ללימוד השקעות במניות, חוזים עתידיים וקריפטו",
   },
 ];
 
