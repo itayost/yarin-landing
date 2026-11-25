@@ -180,6 +180,18 @@ export default function Footer() {
             <ArrowUp className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
+
+        <p className="mt-5 text-center text-xs text-text-secondary">
+          עוצב ופותח על ידי{" "}
+          <a
+            href="https://www.itayost.com"
+            target="_blank"
+            rel="noopener"
+            className="transition-colors hover:text-white"
+          >
+            ITAYOST
+          </a>
+        </p>
       </div>
     </footer>
   );
